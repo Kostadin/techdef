@@ -1,4 +1,6 @@
 function loadLevel(num) {
+	localStorage['level'] = num;
+
 	var levelData = levels[num];
 
 	if (!state) {

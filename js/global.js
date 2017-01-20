@@ -42,3 +42,8 @@ var blendAfterMS = 800;
 var blendForMS = 500;
 var fadeAfterMS = 10000;
 var reloadAfterMS = 15000;
+
+if(localStorage['level']){
+	resumeButton = getElementById('btnResume');
+	resumeButton.style = "display: block";
+}

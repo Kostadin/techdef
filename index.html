@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="css/main.css"/>
 <script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
 <script type="text/javascript" src="js/pixi.js"></script>
-<script type="text/javascript" src="js/sounds.js"></script>
+<!--<script type="text/javascript" src="js/sounds.js"></script>-->
 <script type="text/javascript" src="js/util.js"></script>
 <script type="text/javascript" src="js/global.js"></script>
 <script type="text/javascript" src="levels/level0.js"></script>
@@ -12,7 +12,7 @@
 <script type="text/javascript" src="js/pathfinder.js"></script>
 <script type="text/javascript" src="js/renderer.js"></script>
 <script type="text/javascript" src="js/input.js"></script>
-<script type="text/javascript" src="js/player.js"></script>
+<!--<script type="text/javascript" src="js/player.js"></script>-->
 <script type="text/javascript">
 $(function() {
     loadAnimations();
@@ -40,8 +40,9 @@ $(function() {
 	<div id="container">
 		<div id="screen">
 			<div id="mainMenu" style="display:block;">
-				<div id="btnPlay">Play</div>
-				<div id="btnCredits">Credits</div>
+				<div class="button" id="btnPlay">Play</div>
+				<div class="button" id="btnCredits">Credits</div>
+				<div class="button" id ="btnResume">Resume</div>
 			</div>
 			<div id="credits" class="gameScreen" style="display:none;">
 				<div id="creditsTitle">

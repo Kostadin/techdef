@@ -30,6 +30,7 @@ body{
 	height:720px;
 	z-index:100;
 	background-image: url('../assets/ASCENTION-title-and-gameOver.png');
+	padding-top: 100px;
 }
 
 #titleLoop{
@@ -126,34 +127,11 @@ body{
 	font-size:60px;
 }
 
-#btnPlay{
-	margin-top:280px;
-	margin-left:auto;
-	margin-right:auto;
-	width:200px;
-	height:70px;
-	text-align:center;
-	background-image: url('../img/button.png');
-	border-radius:5px;
-	cursor:pointer;
-	font-size:50px;
-	color:#ebdb2d;
-	text-shadow:0px 0px 25px rgb(197,50,21);
-	border:1px solid black;
-	line-height:70px;
-}
-
-#btnPlay:hover{
-	color:#ebdb2d;
-	border:1px solid #ebdb2d;
-	text-shadow:0px 0px 25px rgb(197,50,21);
-}
-
-#btnCredits{
+.button {
 	margin-top:50px;
 	margin-left:auto;
 	margin-right:auto;
-	width:200px;
+	width:250px;
 	height:70px;
 	text-align:center;
 	background-image: url('../img/button.png');
@@ -166,8 +144,12 @@ body{
 	line-height:70px;
 }
 
-#btnCredits:hover{
+.button:hover {
 	color:#ebdb2d;
 	border:1px solid #ebdb2d;
 	text-shadow:0px 0px 25px rgb(197,50,21);
+}
+
+#btnResume {
+	display: none;
 }
