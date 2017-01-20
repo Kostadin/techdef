@@ -30,7 +30,7 @@ function loadAnimations() {
 	loader.add('guard_1_idle_up', 'assets/raw/animation-guard-1/IDLE/up/guard_1_idle_up.json');
 	loader.add('guard_1_idle_down', 'assets/raw/animation-guard-1/IDLE/down/guard_1_idle_down.json');
 	*/
-	loader.on('complete', function() {
+	loader.once('complete', function() {//loader.on('complete', function() {
 		loadPlayerAnimations();
 		loadGuardAnimations();
 	});
@@ -142,9 +142,9 @@ function loadGuardAnimations() {
 }
 
 function startGame() {
-	mainTheme.pause();
-	backgroundTrack.currentTime = 0;
-	backgroundTrack.play();
+	//mainTheme.pause();
+	//backgroundTrack.currentTime = 0;
+	//backgroundTrack.play();
 
 	$('#mainMenu').hide();
 
@@ -164,11 +164,13 @@ function startGame() {
 		var now = lastUpdate + STEP_TIME
 		if (!showingScroll && !showingFinal){
 			if (!restarting){
+				/*
 				updateActor(player, now, PLAYER_SPEED);
 				for (var i=0; i<guards.length; ++i){
 					updateActor(guards[i], now, GUARD_SPEED);
 				}
 				updateLevel(now);
+				*/
 				
 			} else {
 				if (now>= restartingUntil){
@@ -191,8 +193,8 @@ function startGame() {
 				//stepsFX.pause();
 				//openDoorFX.pause();
 				// Play explosion
-				finalExplosion.position = 0;
-				finalExplosion.play();
+				//finalExplosion.position = 0;
+				//finalExplosion.play();
 			} else {
 				if (now>=finalStartTimeMS + reloadAfterMS){
 					location.reload();
@@ -234,7 +236,28 @@ function renderLevel(onLoaded) {
 	stage.removeChildren();
 
 	var currentLevel = state.currentLevel;
-
+	/*
+	for (var y = 0; y < currentLevel.length; y++) {
+		for (var x = 0; x < currentLevel[y].length; x++) {
+			var tiles = currentLevel[y][x];
+			if (!(tiles.constructor === Array)){
+				tiles = [tiles];
+			}
+			for (var i=0;i<tiles.length;++i){
+				var tile = tiles[i];
+				if (typeLoader[tile.type]) {
+					typeLoader[tile.type](tile, x, y);
+				} else {
+					var sprite = PIXI.Sprite.fromImage("assets/raw/" + tile.sprite);
+					sprite.position.x = TILE_WIDTH * x;
+					sprite.position.y = TILE_HEIGHT * y;
+					stage.addChild(sprite);
+					tile.sprite = sprite;
+				}
+			}
+		};
+	};
+	*/
 	var darkSprite = PIXI.Sprite.fromImage("assets/dark.png");
 	darkSprite.position.x = 0;
 	darkSprite.position.y = 0;
@@ -244,10 +267,6 @@ function renderLevel(onLoaded) {
 	restartingSprite.position.y = 0;
 	restartingSprite.alpha = 0;
 	restartingSprite.visible = false;
-	scrollSprite = PIXI.Sprite.fromImage("assets/raw/Scroll-1.png")
-	scrollSprite.position.x = 0;
-	scrollSprite.position.y = 0;
-	scrollSprite.visible = false;
 	finalSprite1 = PIXI.Sprite.fromImage("assets/final_frame_1.png");
 	finalSprite1.position.x = 0;
 	finalSprite1.position.y = 0;
@@ -262,11 +281,10 @@ function renderLevel(onLoaded) {
 	fadeSprite.position.y = 0;
 	fadeSprite.alpha = 0;
 	fadeSprite.visible = false;
-	resetPlayerPos();
-	resetGuards();
+	//resetPlayerPos();
+	//resetGuards();
 
 	stage.addChild(restartingSprite);
-	stage.addChild(scrollSprite);
 	stage.addChild(finalSprite1);
 	stage.addChild(finalSprite2);
 	stage.addChild(fadeSprite);
