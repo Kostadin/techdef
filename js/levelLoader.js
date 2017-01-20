@@ -20,7 +20,7 @@ function loadLevel(num) {
 			currentLevel[y].push(tile);
 		};
 	};
-
+/*
 	var playerPos = levelData.player;
 	player = {
 		startingPos : playerPos,
@@ -42,6 +42,7 @@ function loadLevel(num) {
 
 		guards[i] = guard;
 	}
+*/
 }
 
 var interactableUpdates = {
