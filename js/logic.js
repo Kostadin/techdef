@@ -317,6 +317,18 @@ function sortUnits(){
 	}
 }
 
+function buildTower(gridY, gridX, template_key){
+	if (state.buildable[gridY][gridX]){
+		tower = $.extend(true, {} , state.tower_templates[template_key]);
+		tower.gridX = gridX;
+		tower.gridY = gridY;
+		tower.x = gridX*TILE_WIDTH+HALF_TILE_WIDTH;
+		tower.y = gridY*TILE_HEIGHT+HALF_TILE_WIDTH;
+		tower.lastFireMS = 0;
+		
+	}
+}
+
 function playerDied(now) {
 /*
 	//alert('dead');

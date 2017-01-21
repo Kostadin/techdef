@@ -76,22 +76,25 @@ levels[0] =
 			"buildable" : false
 		}
 	},
-	"towers" : {
+	"tower_templates" : {
 		"q" : {
 			"projectile": "plasma",
-			"interval": 50,
+			"interval": 100,
+			"duration": 50,
 			"damage": 10,
 			"sheet": "tower1"
 		},
 		"w" : {
 			"projectile": "laser",
 			"interval": 250,
+			"duration": 50,
 			"damage": 10,
 			"sheet": "tower3"
 		},
 		"e" : {
 			"projectile": "granade",
-			"interval": 50,
+			"interval": 350,
+			"duration": 50,
 			"damage": 10,
 			"sheet": "tower2"
 		}

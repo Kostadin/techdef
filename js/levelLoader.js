@@ -13,6 +13,8 @@ function loadLevel(num) {
 	var definition = levelData.definition;
 	var currentLevel = state.currentLevel;
 	state.waves = [];
+	state.towers = [];
+	state.tower_templtes = levelData.tower_templtes;
 	state.buildable = new Array(map.length);
 	state.passable = new Array(map.length);
 	state.exit = new Array(map.length);
