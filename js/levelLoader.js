@@ -21,7 +21,9 @@ function loadLevel(num) {
 	state.unitCell = new Array(map.length);
 	var exits = [];
 	var dist = new Array(map.length);
+	state.levelGridHeight = map.length;
 	for (var y = 0; y < map.length; y++) {
+		state.levelGridWidth = map[y].length;
 		currentLevel[y] = [];
 		var buildable = new Array(map[y].length);
 		var passable = new Array(map[y].length);

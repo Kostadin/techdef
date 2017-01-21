@@ -159,13 +159,16 @@ function startGame(level) {
 	gameStartTime = Date.now();
 	currentTime = gameStartTime;
 
-	lastUpdate = currentTime;
+	lastUpdate = 0;//currentTime;
 	setInterval(function updateLoop() {
 		var now = lastUpdate + STEP_TIME
 		if (!showingScroll && !showingFinal){
 			if (!restarting){
 				for (var i=0; i<state.waves.length; ++i){
 					updateWave(state.waves[i], now);
+				}
+				for (var i=0; i<state.units.length; ++i){
+					updateUnit(state.units[i], now);
 				}
 			} else {
 				if (now>= restartingUntil){
@@ -329,15 +332,6 @@ function renderLevel(onLoaded) {
 					tile.sprite = sprite;
 				}
 			}
-			// Draw units
-			var units = unitCell[y][x];
-			for (var i=0;i<tiles.length;++i){
-				var sprite = PIXI.Sprite.fromImage("assets/" + tile.sprite);
-				sprite.position.x = TILE_WIDTH * x;
-				sprite.position.y = TILE_HEIGHT * y;
-				stage.addChild(sprite);
-			}
-			// Draw towers
 		};
 	};
 	
