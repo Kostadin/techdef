@@ -42,7 +42,7 @@ $(function() {
 			<div id="mainMenu" style="display:block;">
 				<div class="button" id="btnPlay">Play</div>
 				<div class="button" id="btnCredits">Credits</div>
-				<div class="button" id ="btnResume">Resume</div>
+				<div class="button" id="btnResume">Resume</div>
 			</div>
 			<div id="credits" class="gameScreen" style="display:none;">
 				<div id="creditsTitle">
@@ -72,6 +72,13 @@ $(function() {
 			</div>
 		</div>
 	</div>
+<script>
+	if(localStorage['level'] != null){
+		resumeButton = document.getElementById('btnResume');
+		resumeButton.style = "display: block";
+	}
+	console.log(localStorage);
+</script>
 </body>
 </html>
 
