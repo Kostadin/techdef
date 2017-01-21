@@ -21,7 +21,7 @@ levels[0] =
 		"m" : {
 			"type" : "minion",
 			"sprite" : "minion1left.png",
-			"passable" : false,
+			"passable" : true,
 			"buildable" : false
 		},
 		"e" : 

@@ -15,6 +15,7 @@ function loadLevel(num) {
 	state.buildable = new Array(map.length);
 	state.passable = new Array(map.length);
 	state.exit = new Array(map.length);
+	state.flow = new Array(map.length);
 	var exits = [];
 	var dist = new Array(map.length);
 	for (var y = 0; y < map.length; y++) {
@@ -23,11 +24,13 @@ function loadLevel(num) {
 		var passable = new Array(map[y].length);
 		var exit = new Array(map[y].length);
 		var d = new Array(map[y].length);
+		var flow = new Array(map[y].length);
 		for (var x = 0; x < map[y].length; x++) {
 			buildable[x] = true;
 			passable[x] = true;
 			exit[x] = false;
 			d[x] = 99999;
+			flow[x] = [[0, 0]];
 			if (!(map[y][x].constructor === Array)){
 				var tileType = map[y][x];
 				var tile = $.extend(true, {} , definition[tileType]);
@@ -61,6 +64,7 @@ function loadLevel(num) {
 		state.buildable[y] = buildable;
 		state.passable[y] = passable;
 		state.exit[y] = exit;
+		state.flow[y] = flow;
 		dist[y] = d;
 	};
 	
@@ -85,7 +89,30 @@ function loadLevel(num) {
 			}
 		}
 	}
-	
+	for (var cy=0; cy<map.length; ++cy){
+		for (var cx=0; cx<map[cy].length; ++cx){
+			if (state.passable[cy][cx]){
+				var min_dist = dist[cy][cx];
+				var flow = state.flow[cy][cx]; 
+				for (var j=0; j<mods.length; ++j){
+					var mod = mods[j];
+					var y = cy + mod[0];
+					var x = cx + mod[1];
+					if ((0 <= y) && (y<map.length) && (0<=x) && (x<map[y].length) && (state.passable[y][x])){
+						if (dist[y][x] < min_dist){
+							min_dist = dist[y][x];
+							flow = [mod];
+						}
+						else if (dist[y][x] === min_dist){
+							flow.push(mod);
+						}
+					}
+				}
+				state.flow[cy][cx] = flow;
+			}
+		}
+	}
+
 /*
 	var playerPos = levelData.player;
 	player = {
