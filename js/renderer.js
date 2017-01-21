@@ -86,6 +86,9 @@ function startGame(level) {
 					updateUnit(state.units[i], now);
 				}
 				sortUnits();
+				for (var i=0; i<state.towers.length; ++i){
+					updateTower(state.towers[i], now);
+				}
 			} else {
 				if (now>= restartingUntil){
 					restartingSprite.visible = false;

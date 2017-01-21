@@ -81,6 +81,7 @@ levels[0] =
 			"projectile": "plasma",
 			"interval": 100,
 			"duration": 50,
+			"range": 150,
 			"damage": 10,
 			"sheet": "tower1"
 		},
@@ -88,6 +89,7 @@ levels[0] =
 			"projectile": "laser",
 			"interval": 250,
 			"duration": 50,
+			"range": 150,
 			"damage": 10,
 			"sheet": "tower3"
 		},
@@ -95,6 +97,7 @@ levels[0] =
 			"projectile": "granade",
 			"interval": 350,
 			"duration": 50,
+			"range": 150,
 			"damage": 10,
 			"sheet": "tower2"
 		}

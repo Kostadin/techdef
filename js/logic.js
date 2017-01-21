@@ -324,6 +324,7 @@ function buildTower(gridY, gridX, template_key){
 		tower.gridY = gridY;
 		tower.x = gridX*TILE_WIDTH+HALF_TILE_WIDTH;
 		tower.y = gridY*TILE_HEIGHT+HALF_TILE_WIDTH;
+		tower.sqrRange = tower.range*tower.range;
 		tower.lastFireMS = 0;
 		tower.sprite1 = PIXI.Sprite.fromFrame(tower.sheet+'_fire1.png');
 		tower.sprite2 = PIXI.Sprite.fromFrame(tower.sheet+'_fire2.png');
@@ -347,6 +348,47 @@ function destroyTower(tower){
 		break;
 	}
 	state.buildable[tower.gridY][tower.gridX] = true;
+}
+
+function prioritiseForPlasma(a, b){
+	if (a.maxHP === b.maxHP){
+		return (a.hp - b.hp);
+	} else {
+		return (a.maxHP - b.maxHP);
+	}
+}
+
+function updateTower(tower, now){
+	// Turn off
+	if (tower.lastFireMS < now - tower.duration){
+		tower.sprite1.visible = true;
+		tower.sprite2.visible = false;
+	}
+	
+	// Try firing
+	if (tower.sprite1.visible && (tower.lastFireMS + tower.interval < now)){
+		if (tower.projectile === "plasma"){
+			var potential = [];
+			for (var i=0; i<state.units.length; ++i){
+				var unit = state.units[i];
+				if (sqrDist(tower, unit)<=tower.sqrRange){
+					potential.push(unit);
+				}
+			}
+			if (potential.length>1){
+				potential.sort(prioritiseForPlasma);
+			}
+			if (potential.length>0){
+				var target = potential[0];
+				// Emit projectile
+				tower.sprite1.visible = false;
+				tower.sprite2.visible = true;
+				tower.lastFireMS = now;
+			}
+		} else if (tower.projectile === "laser"){
+		} else if (tower.projectile === "granade"){
+		}
+	}
 }
 
 function playerDied(now) {
