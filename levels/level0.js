@@ -2,7 +2,7 @@ levels[0] =
 {	
 	"map" :
 	[
-		[ "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o"],
+		[ "o", "o", "o", ["o", "i"], "o", "o", "o", "o", "o", ["o", "i"], ["o", "i"], "o", "o", ["o", "i"], "o", "o", "o", "o", "o", "o"],
 		[ "o", "o", "o", "w", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "w", "o", "o", "o"],
 		[ "o", "w", "w", "w", "w", "w", "w", "w", "o", "o", "o", "o", "w", "w", "w", "w", "w", "w", "w", "o"],
 		[ "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o"],
@@ -68,6 +68,13 @@ levels[0] =
 	{
 		"w" : { "type" : "wall", "sprite" : "wall1.png" , "passable" : false, "buildable" : true },
 		"o" : { "type" : "floor", "sprite" : "ground1.png" , "passable" : true, "buildable" : true },
+		"i" : 
+		{
+			"type" : "entrance",
+			"sprite" : "entrance.png",
+			"passable" : true,
+			"buildable" : false
+		},
 		"e" : 
 		{
 			"type" : "exit",
