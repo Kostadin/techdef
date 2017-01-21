@@ -327,8 +327,8 @@ function buildTower(gridY, gridX, template_key){
 		tower.lastFireMS = 0;
 		tower.sprite1 = PIXI.Sprite.fromFrame(tower.sheet+'_fire1.png');
 		tower.sprite2 = PIXI.Sprite.fromFrame(tower.sheet+'_fire2.png');
-		tower.sprite1.visibible = true;
-		tower.sprite2.visibible = false;
+		tower.sprite1.visible = true;
+		tower.sprite2.visible = false;
 		tower.sprite1.x = gridX*TILE_WIDTH;
 		tower.sprite2.x = tower.sprite1.x;
 		tower.sprite1.y = gridY*TILE_HEIGHT;
