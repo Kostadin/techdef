@@ -58,14 +58,20 @@ function removeUnit(unit){
 			break;
 		}
 	}
+	unit.sprite.visible = false;
 	stage.removeChild(unit.sprite);
 }
 
 function unitExits(unit){
-	playSound("pew");
-	playSound("explosion");
+	
+	
 	//console.log(unit);
 
+	removeUnit(unit);
+}
+
+function killUnit(unit, projectile_type){
+	playSound("explosion");
 	removeUnit(unit);
 }
 
@@ -391,21 +397,71 @@ function updateTower(tower, now){
 				tower.lastFireMS = now;
 				var projectile = {
 					type: tower.projectile,
+					damage: tower.damage,
 					startX: tower.gridX*TILE_WIDTH+31,
 					startY: tower.gridY*TILE_HEIGHT+6,
 					endX: target.x,
 					endY: target.y,
-					speed: 5,
+					speed: 32,
 					width: 64,
 					height: 16
 				};
 				var sprite = PIXI.Sprite.fromImage("assets/green_laser.png");
-				sprite.position.x = 0;
-				sprite.position.y = 0;
+				sprite.anchor.x = 1;
+				sprite.anchor.y = 0.5;
+				var dirVector = {x: (projectile.endX - projectile.startX), y: (projectile.endY - projectile.startY)};
+				normalize(dirVector);
+				projectile.dirVector = dirVector;
+				sprite.rotation = Math.atan2(dirVector.y, dirVector.x);
+				scaleVector(projectile.dirVector, projectile.speed);
+				projectile.x = projectile.startX;
+				projectile.y = projectile.startY;
+				pointAdd(projectile, projectile.dirVector);
+				sprite.position.x = projectile.x;
+				sprite.position.y = projectile.y;
+				sprite.scale.x = projectile.speed / projectile.width;
+				sprite.scale.y = sprite.scale.x;
+				projectile.sprite = sprite;
 				stage.addChild(sprite);
+				state.projectiles.push(projectile);
+				playSound("pew");
 			}
 		} else if (tower.projectile === "laser"){
 		} else if (tower.projectile === "granade"){
+		}
+	}
+}
+
+function removeProjectile(projectile){
+	stage.removeChild(projectile.sprite);
+	for (var i=0; i<state.projectiles.length; ++i){
+		if (state.projectiles[i] === projectile){
+			state.projectiles.splice(i, 1);
+			break;
+		}
+	}
+}
+
+function updateProjectile(projectile, now){
+	if (projectile.type === "plasma"){
+		var distVec = {x: (projectile.endX - projectile.x), y: (projectile.endY - projectile.y)};
+		if (sqrVecLength(distVec)<projectile.speed*projectile.speed){
+			removeProjectile(projectile);
+			for (var i=0; i<state.units.length; ++i){
+				var unit = state.units[i];
+				if (sqrDist(unit, {x: projectile.endX, y: projectile.endY})<(unit.avgRadius*unit.avgRadius)){
+					// Damage calculation
+					unit.hp -= projectile.damage;
+					// Target elimination
+					if (unit.hp <= 0){
+						removeUnit(unit);
+					}
+				}
+			}
+		} else {
+			pointAdd(projectile, projectile.dirVector);
+			projectile.sprite.x = projectile.x;
+			projectile.sprite.y = projectile.y;
 		}
 	}
 }

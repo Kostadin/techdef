@@ -79,6 +79,9 @@ function startGame(level) {
 		var now = lastUpdate + STEP_TIME
 		if (!showingScroll && !showingFinal){
 			if (!restarting){
+				for (var i=0; i<state.projectiles.length; ++i){
+					updateProjectile(state.projectiles[i], now);
+				}
 				for (var i=0; i<state.waves.length; ++i){
 					updateWave(state.waves[i], now);
 				}
@@ -149,85 +152,6 @@ function startUpdate() {
 	requestAnimationFrame( update );
 }
 
-var typeLoader = {
-/*
-	"altar" : function altarLoader(altar, x, y) {
-		var notVisited = PIXI.Sprite.fromImage("assets/raw/" + altar.sprites.notVisited);
-		notVisited.position.x = TILE_WIDTH * x;
-		notVisited.position.y = TILE_HEIGHT * y;
-		stage.addChild(notVisited);
-		altar.spriteNotVisited = notVisited;
-
-		var visited = PIXI.Sprite.fromImage("assets/raw/" + altar.sprites.visited);
-		visited.position.x = TILE_WIDTH * x;
-		visited.position.y = TILE_HEIGHT * y;
-		altar.spriteVisited = visited;
-		visited.visible = false;
-		stage.addChild(visited);
-
-	},
-	"spikes" : function spikesLoader(spikes, x, y) {
-		var floor = PIXI.Sprite.fromImage("assets/raw/" + spikes.sprites.floor);
-		floor.position.x = TILE_WIDTH * x;
-		floor.position.y = TILE_HEIGHT * y;
-		stage.addChild(floor);
-
-		var hidden = PIXI.Sprite.fromImage("assets/raw/" + spikes.sprites.hidden);
-		hidden.position.x = TILE_WIDTH * x;
-		hidden.position.y = TILE_HEIGHT * y;
-		stage.addChild(hidden);
-		spikes.spriteHidden = hidden;
-
-		var shown = PIXI.Sprite.fromImage("assets/raw/" + spikes.sprites.shown);
-		shown.position.x = TILE_WIDTH * x;
-		shown.position.y = TILE_HEIGHT * y;
-		shown.visible = false;
-		stage.addChild(shown);
-		spikes.spriteShown = shown;
-	},
-	"door" : function doorLoad(door, x, y) {
-		var openned = PIXI.Sprite.fromImage("assets/raw/" + door.sprites.open);
-		openned.position.x = TILE_WIDTH * x;
-		openned.position.y = TILE_HEIGHT * y;
-		openned.visible = false;
-		stage.addChild(openned);
-		door.spriteOpenned = openned;
-
-		var closed = PIXI.Sprite.fromImage("assets/raw/" + door.sprites.close);
-		closed.position.x = TILE_WIDTH * x;
-		closed.position.y = TILE_HEIGHT * y;
-		stage.addChild(closed);
-		door.spriteClosed = closed;
-
-		door.open = function() {
-			openned.visible = true;
-			closed.visible = false;
-			door.passable = true;
-			openDoorFX.position = 0;
-			openDoorFX.play();
-		};
-	}, 
-	"scroll" : function scrollLoad(scroll, x, y) {
-		var floor = PIXI.Sprite.fromImage("assets/raw/" + scroll.sprites.floor);
-		floor.position.x = TILE_WIDTH * x;
-		floor.position.y = TILE_HEIGHT * y;
-		scroll.sprites.floor = floor;
-		stage.addChild(floor);
-
-		var scrollSprite = PIXI.Sprite.fromImage("assets/raw/" + scroll.sprites.scroll);
-		scrollSprite.position.x = TILE_WIDTH * x;
-		scrollSprite.position.y = TILE_HEIGHT * y;
-		stage.addChild(scrollSprite);
-		scroll.sprites.scroll = scrollSprite;
-
-		scroll.open = function() {
-			showScroll();
-			scrollSprite.visible = false;
-		};
-	}
-*/
-}
-
 function renderLevel(onLoaded) {
 	stage.removeChildren();
 
@@ -241,15 +165,11 @@ function renderLevel(onLoaded) {
 			}
 			for (var i=0;i<tiles.length;++i){
 				var tile = tiles[i];
-				if (typeLoader[tile.type]) {
-					typeLoader[tile.type](tile, x, y);
-				} else {
-					var sprite = PIXI.Sprite.fromImage("assets/" + tile.sprite);
-					sprite.position.x = TILE_WIDTH * x;
-					sprite.position.y = TILE_HEIGHT * y;
-					stage.addChild(sprite);
-					tile.sprite = sprite;
-				}
+				var sprite = PIXI.Sprite.fromImage("assets/" + tile.sprite);
+				sprite.position.x = TILE_WIDTH * x;
+				sprite.position.y = TILE_HEIGHT * y;
+				stage.addChild(sprite);
+				tile.sprite = sprite;
 			}
 		};
 	};

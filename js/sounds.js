@@ -41,7 +41,7 @@ var pewSFX = new Audio("sound/pew.mp3")
 var splashSFX = new Audio("sound/splash.mp3");
 var explosionSFX = new Audio("sound/explosion.mp3");
 
-var MAX_SOUNDS = 5;
+var MAX_SOUNDS = 15;
 var max_sounds = MAX_SOUNDS;
 
 function soundTake(){
