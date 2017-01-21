@@ -333,13 +333,20 @@ function buildTower(gridY, gridX, template_key){
 		tower.sprite2.x = tower.sprite1.x;
 		tower.sprite1.y = gridY*TILE_HEIGHT;
 		tower.sprite2.y = tower.sprite1.y;
-		stage.add(sprite1);
-		stage.add(sprite2);
+		stage.addChild(tower.sprite1);
+		stage.addChild(tower.sprite2);
 		state.towers.push(tower);
 	}
 }
 
 function destroyTower(tower){
+	stage.removeChild(tower.sprite1);
+	stage.removeChild(tower.sprite2);
+	for (var i=0; i<state.towers.length; ++i){
+		state.towers.splice(i, 1);
+		break;
+	}
+	state.buildable[tower.gridY][tower.gridX] = true;
 }
 
 function playerDied(now) {

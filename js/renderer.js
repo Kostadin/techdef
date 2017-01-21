@@ -65,6 +65,8 @@ function startGame(level) {
 
 	renderInit();
 	renderLevel();
+	// Debug towers
+	buildTower(8, 7, "q");
 	startUpdate();
 
 	addMouseHandler();
