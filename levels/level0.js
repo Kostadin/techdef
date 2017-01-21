@@ -17,7 +17,7 @@ levels[0] =
 	"waves" : [
 		{
 			"startMS": 1000,
-			"count": 15,
+			"count": 45,
 			"interval": 50,
 			"x": 3,
 			"y": 0,
@@ -26,7 +26,43 @@ levels[0] =
 			"sizeX": 32,
 			"sizeY": 32,
 			"sheet": "minion1"
-		}
+		},
+		{
+			"startMS": 1000,
+			"count": 45,
+			"interval": 50,
+			"x": 13,
+			"y": 0,
+			"speed": 8,
+			"maxHP": 100,
+			"sizeX": 32,
+			"sizeY": 32,
+			"sheet": "minion1"
+		},
+		{
+			"startMS": 1000,
+			"count": 45,
+			"interval": 50,
+			"x": 9,
+			"y": 0,
+			"speed": 8,
+			"maxHP": 100,
+			"sizeX": 32,
+			"sizeY": 32,
+			"sheet": "minion1"
+		},
+		{
+			"startMS": 1000,
+			"count": 45,
+			"interval": 50,
+			"x": 10,
+			"y": 0,
+			"speed": 8,
+			"maxHP": 100,
+			"sizeX": 32,
+			"sizeY": 32,
+			"sheet": "minion1"
+		},
 	],
 	"definition" : 
 	{
