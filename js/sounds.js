@@ -33,3 +33,21 @@
 var pewSFX = new Audio("sound/pew.mp3")
 var splashSFX = new Audio("sound/splash.mp3");
 var explosionSFX = new Audio("sound/explosion.mp3");
+
+var MAX_SOUNDS = 5;
+var max_sounds = MAX_SOUNDS;
+
+function soundTake(){
+	max_sounds++;
+	this.removeEventListener('ended', soundTake, false);
+	console.log('Max sounds restored: ' + max_sounds);
+}
+
+function playSound(sound){
+	if(max_sounds > 0){
+		max_sounds--;
+		console.log('Max sounds lowered: ' + max_sounds);
+		sound.play();
+		sound.addEventListener('ended', soundTake, false);
+	}
+}
