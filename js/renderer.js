@@ -6,36 +6,30 @@ function renderInit() {
 	stage = new PIXI.Container();
 }
 
+var minionNames = ['minion1', 'minion2', 'minion3', 'minionboss'];
+
 function loadAnimations() {
-	
 	var loader = new PIXI.loaders.Loader();
-	/*
-	loader.add('player_right', 'assets/raw/animation-player/MOVE/render-right/player_right.json');
-	loader.add('player_left', 'assets/raw/animation-player/MOVE/render-left/player_left.json');
-	loader.add('player_up', 'assets/raw/animation-player/MOVE/render-back/player_up.json');
-	loader.add('player_down', 'assets/raw/animation-player/MOVE/render-front/player_down.json');
-
-	loader.add('player_idle_right', 'assets/raw/animation-player/IDLE/render-right/player_idle_right.json');
-	loader.add('player_idle_left', 'assets/raw/animation-player/IDLE/render-left/player_idle_left.json');
-	loader.add('player_idle_up', 'assets/raw/animation-player/IDLE/render-back/player_idle_up.json');
-	loader.add('player_idle_down', 'assets/raw/animation-player/IDLE/render-front/player_idle_down.json');
-
-	loader.add('guard_1_right', 'assets/raw/animation-guard-1/WALK/right/guard_1_right.json');
-	loader.add('guard_1_left', 'assets/raw/animation-guard-1/WALK/left/guard_1_left.json');
-	loader.add('guard_1_up', 'assets/raw/animation-guard-1/WALK/up/guard_1_up.json');
-	loader.add('guard_1_down', 'assets/raw/animation-guard-1/WALK/down/guard_1_down.json');
-
-	loader.add('guard_1_idle_right', 'assets/raw/animation-guard-1/IDLE/right/guard_1_idle_right.json');
-	loader.add('guard_1_idle_left', 'assets/raw/animation-guard-1/IDLE/left/guard_1_idle_left.json');
-	loader.add('guard_1_idle_up', 'assets/raw/animation-guard-1/IDLE/up/guard_1_idle_up.json');
-	loader.add('guard_1_idle_down', 'assets/raw/animation-guard-1/IDLE/down/guard_1_idle_down.json');
-	*/
+	for (var i=0; i< minionNames.length; ++i){
+		var name = minionNames[i];
+		loader.add(name, 'assets/'+name+'/'+name+'_down.json');
+	}
+	
 	loader.once('complete', function() {//loader.on('complete', function() {
-		loadPlayerAnimations();
-		loadGuardAnimations();
+		loadMinionAnimations();
 	});
 	loader.load();
-	
+}
+
+function loadMinionAnimations() {
+	minionAnimations = {};
+	for (var i=0; i< minionNames.length; ++i){
+		var name = minionNames[i];
+		minionAnimations[name] = [];
+		for(var j=1; j<=2; ++j){
+			minionAnimations[name].push(PIXI.Texture.fromFrame(name+'_down'+j+'.png'));
+		}
+	}
 }
 
 function loadPlayerAnimations() {

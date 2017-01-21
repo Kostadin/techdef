@@ -21,11 +21,25 @@ function spawn(wave, now){
 	var ucY = Math.floor(unit.y/TILE_HEIGHT);
 	var ucX = Math.floor(unit.x/TILE_WIDTH);
 	state.unitCell[ucY][ucX].push(unit);
+	/*
 	var sprite = PIXI.Sprite.fromImage("assets/" + unit.sheet+"/"+unit.sheet+"_down1.png");
 	sprite.position.x = unit.x - (unit.halfSizeX);
 	sprite.position.y = unit.y - (unit.halfSizeY);
 	unit.sprite = sprite;
 	stage.addChild(sprite);
+	*/
+	var sprite = new PIXI.Container();
+	sprite.anchor = new PIXI.Point(0.5, 0.5);
+	unit.sprite = sprite;
+	var clip = new PIXI.extras.MovieClip(minionAnimations[unit.sheet]);
+	clip.visible = true;
+	clip.position = new PIXI.Point(0, 0);
+	clip.animationSpeed = MINION_ANIM_SCALE;
+	sprite.position.x = unit.x - (unit.halfSizeX);
+	sprite.position.y = unit.y - (unit.halfSizeY);
+	sprite.addChild(clip);
+	stage.addChild(sprite);
+	clip.play();
 }
 
 function removeUnit(unit){
