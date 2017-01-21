@@ -31,7 +31,7 @@ function spawn(wave, now){
 	var sprite = new PIXI.Container();
 	sprite.anchor = new PIXI.Point(0.5, 0.5);
 	unit.sprite = sprite;
-	var clip = new PIXI.extras.MovieClip(minionAnimations[unit.sheet]);
+	var clip = new PIXI.extras.AnimatedSprite(minionAnimations[unit.sheet]);
 	clip.visible = true;
 	clip.position = new PIXI.Point(0, 0);
 	clip.animationSpeed = MINION_ANIM_SCALE;

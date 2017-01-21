@@ -15,7 +15,7 @@ function loadAnimations() {
 		loader.add(name, 'assets/'+name+'/'+name+'_down.json');
 	}
 	
-	loader.once('complete', function() {//loader.on('complete', function() {
+	loader.once('complete', function() {
 		loadMinionAnimations();
 	});
 	loader.load();
