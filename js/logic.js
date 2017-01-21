@@ -53,7 +53,7 @@ function removeUnit(unit){
 		}
 	}
 	for (var i=0; i<state.units.length; ++i){
-		if (state.units === unit){
+		if (state.units[i] === unit){
 			state.units.splice(i, 1);
 			break;
 		}
