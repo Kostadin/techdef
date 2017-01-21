@@ -13,7 +13,9 @@ function spawn(wave, now){
 		sheet: wave.sheet,
 		x: wave.x*TILE_WIDTH+(HALF_TILE_WIDTH),
 		y: wave.y*TILE_HEIGHT+(HALF_TILE_HEIGHT),
-		speed: wave.speed
+		speed: wave.speed,
+		lastX: -1,
+		lastY: -1
 	};
 	state.units.push(unit);
 	var ucY = Math.floor(unit.y/TILE_HEIGHT);
@@ -261,10 +263,21 @@ function updateUnit(unit, now){
 		}
 	}
 	
+	// Jiggle to get unstuck
+	if ((unit.lastX === Math.floor(unit.x))&&(unit.lastY === Math.floor(unit.y))){
+		unit.x += Math.round(Math.random()*3-1.5);
+		unit.y += Math.round(Math.random()*3-1.5);
+	}
+	
+	honorLimits(unit);
+	
 	// Check the exit
 	if (state.exit[gridY][gridX]){
 		unitExits(unit);
 	}
+	
+	unit.lastX = Math.floor(unit.x);
+	unit.lastY = Math.floor(unit.y);
 }
 
 function unitRenderSortComparator(a, b){
