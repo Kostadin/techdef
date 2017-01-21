@@ -11,17 +11,17 @@ function loadLevel(num) {
 	state.currentLevelIndex = num;
 
 	var map = levelData.map;
-	var defenition = levelData.defenition;
+	var definition = levelData.definition;
 	var currentLevel = state.currentLevel;
 	for (var y = 0; y < map.length; y++) {
 		currentLevel[y] = [];
 		 for (var x = 0; x < map[y].length; x++) {
 			var tileType = map[y][x];
-			var tile = $.extend(true, {} , defenition[tileType]);
+			var tile = $.extend(true, {} , definition[tileType]);
 			currentLevel[y].push(tile);
 		};
 	};
-
+/*
 	var playerPos = levelData.player;
 	player = {
 		startingPos : playerPos,
@@ -43,6 +43,7 @@ function loadLevel(num) {
 
 		guards[i] = guard;
 	}
+*/
 }
 
 var interactableUpdates = {
