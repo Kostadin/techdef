@@ -40,16 +40,16 @@ levels[0] =
 			"sheet": "minion1"
 		},
 		{
-			"startMS": 1000,
-			"count": 45,
-			"interval": 50,
+			"startMS": 200,
+			"count": 20,
+			"interval": 150,
 			"x": 9,
 			"y": 0,
-			"speed": 8,
+			"speed": 4,
 			"maxHP": 100,
-			"sizeX": 32,
-			"sizeY": 32,
-			"sheet": "minion1"
+			"sizeX": 58,
+			"sizeY": 58,
+			"sheet": "minionboss"
 		},
 		{
 			"startMS": 1000,
@@ -62,7 +62,7 @@ levels[0] =
 			"sizeX": 32,
 			"sizeY": 32,
 			"sheet": "minion1"
-		},
+		}
 	],
 	"definition" : 
 	{
