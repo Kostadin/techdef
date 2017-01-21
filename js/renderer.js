@@ -7,7 +7,7 @@ function renderInit() {
 }
 
 var minionNames = ['minion1', 'minion2', 'minion3', 'minionboss'];
-var towerNames = ['tower1', 'tower2'];
+var towerNames = ['tower1', 'tower2', 'tower3'];
 
 function loadAnimations() {
 	var loader = new PIXI.loaders.Loader();
