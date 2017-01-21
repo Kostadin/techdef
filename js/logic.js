@@ -359,7 +359,7 @@ function prioritiseForPlasma(a, b){
 	if (a.maxHP === b.maxHP){
 		return (a.hp - b.hp);
 	} else {
-		return (a.maxHP - b.maxHP);
+		return (b.maxHP - a.maxHP);
 	}
 }
 
@@ -389,6 +389,20 @@ function updateTower(tower, now){
 				tower.sprite1.visible = false;
 				tower.sprite2.visible = true;
 				tower.lastFireMS = now;
+				var projectile = {
+					type: tower.projectile,
+					startX: tower.gridX*TILE_WIDTH+31,
+					startY: tower.gridY*TILE_HEIGHT+6,
+					endX: target.x,
+					endY: target.y,
+					speed: 5,
+					width: 64,
+					height: 16
+				};
+				var sprite = PIXI.Sprite.fromImage("assets/green_laser.png");
+				sprite.position.x = 0;
+				sprite.position.y = 0;
+				stage.addChild(sprite);
 			}
 		} else if (tower.projectile === "laser"){
 		} else if (tower.projectile === "granade"){

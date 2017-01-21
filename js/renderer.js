@@ -276,7 +276,7 @@ function renderLevel(onLoaded) {
 	fadeSprite.position.x = 0;
 	fadeSprite.position.y = 0;
 	fadeSprite.alpha = 0;
-	fadeSprite.visible = false;
+	fadeSprite.visible = false;	
 	//resetPlayerPos();
 	//resetGuards();
 

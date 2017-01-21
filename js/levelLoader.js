@@ -14,6 +14,7 @@ function loadLevel(num) {
 	var currentLevel = state.currentLevel;
 	state.waves = [];
 	state.towers = [];
+	state.projectiles = [];
 	state.tower_templates = levelData.tower_templates;
 	state.buildable = new Array(map.length);
 	state.passable = new Array(map.length);
