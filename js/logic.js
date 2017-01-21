@@ -62,6 +62,10 @@ function removeUnit(unit){
 }
 
 function unitExits(unit){
+	playSound("pew");
+	playSound("explosion");
+	//console.log(unit);
+
 	removeUnit(unit);
 }
 
@@ -277,20 +281,20 @@ function updateUnit(unit, now){
 			}
 		}
 	}
-	
+
 	// Jiggle to get unstuck
 	if ((unit.lastX === Math.floor(unit.x))&&(unit.lastY === Math.floor(unit.y))){
 		unit.x += Math.round(Math.random()*3-1.5);
 		unit.y += Math.round(Math.random()*3-1.5);
 	}
-	
+
 	honorLimits(unit);
-	
+
 	// Check the exit
 	if (state.exit[gridY][gridX]){
 		unitExits(unit);
 	}
-	
+
 	unit.lastX = Math.floor(unit.x);
 	unit.lastY = Math.floor(unit.y);
 }

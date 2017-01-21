@@ -50,10 +50,10 @@ function loadTowerAnimations() {
 
 function startGame(level) {
 	//just in case
-	if(max_sounds != MAX_SOUNDS){
-		max_sounds == MAX_SOUNDS;
-		console.log("max_sounds shoud be " + MAX_SOUNDS);
-	}
+	//if(max_sounds != MAX_SOUNDS){
+	//	max_sounds == MAX_SOUNDS;
+	//	console.log("max_sounds shoud be " + MAX_SOUNDS);
+	//}
 
 	//mainTheme.pause();
 	//backgroundTrack.currentTime = 0;

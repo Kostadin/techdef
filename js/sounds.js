@@ -30,6 +30,13 @@
 //var finalExplosion = new Audio("sound/final_explosion.mp3");
 
 //mainTheme.play();
+
+var soundBoard = {
+	pew: "sound/pew.mp3",
+	splash: "sound/splash.mp3",
+	explosion: "sound/explosion.mp3"
+};
+
 var pewSFX = new Audio("sound/pew.mp3")
 var splashSFX = new Audio("sound/splash.mp3");
 var explosionSFX = new Audio("sound/explosion.mp3");
@@ -43,11 +50,23 @@ function soundTake(){
 	console.log('Max sounds restored: ' + max_sounds);
 }
 
-function playSound(sound){
+function soundDrop(){
+	this.pause();
+	max_sounds++;
+	console.log("pending");
+	this.removeEventListener('waiting', soundDrop, false);
+	console.log('Max sounds restored (paused): ' + max_sounds);
+}
+
+function playSound(soundName){
+	//console.log(max_sounds);
 	if(max_sounds > 0){
 		max_sounds--;
 		console.log('Max sounds lowered: ' + max_sounds);
+		var sound = new Audio(soundBoard[soundName]);
+		sound.loop = false;
 		sound.play();
+		// sound.addEventListener('waiting', soundDrop, false);
 		sound.addEventListener('ended', soundTake, false);
 	}
 }
