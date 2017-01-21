@@ -1,20 +1,20 @@
 {
 "frames": {
 	"minionboss_down1.png": {
-		"frame": {"x":41, "y":0, "w":40, "h":48},
-		"spriteSourceSize": {"x":5,"y":1,"w":50,"h":50},
-		"sourceSize": {"w":50,"h":50}
+		"frame": {"x":46, "y":0, "w":45, "h":56},
+		"spriteSourceSize": {"x":6,"y":1,"w":58,"h":58},
+		"sourceSize": {"w":58,"h":58}
 	},
 	"minionboss_down2.png": {
-		"frame": {"x":0, "y":0, "w":40, "h":48},
-		"spriteSourceSize": {"x":5,"y":1,"w":50,"h":50},
-		"sourceSize": {"w":50,"h":50}
+		"frame": {"x":0, "y":0, "w":45, "h":56},
+		"spriteSourceSize": {"x":7,"y":1,"w":58,"h":58},
+		"sourceSize": {"w":58,"h":58}
 	}
 
 },
 "meta": {
 	"image": "minionboss_down.png",
-	"size": {"w": 82, "h": 49},
+	"size": {"w": 92, "h": 57},
 	"scale": "1"
 }
 }
