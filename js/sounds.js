@@ -47,22 +47,22 @@ var max_sounds = MAX_SOUNDS;
 function soundTake(){
 	max_sounds++;
 	this.removeEventListener('ended', soundTake, false);
-	console.log('Max sounds restored: ' + max_sounds);
+	//console.log('Max sounds restored: ' + max_sounds);
 }
 
 function soundDrop(){
 	this.pause();
 	max_sounds++;
-	console.log("pending");
+	//console.log("pending");
 	this.removeEventListener('waiting', soundDrop, false);
-	console.log('Max sounds restored (paused): ' + max_sounds);
+	//console.log('Max sounds restored (paused): ' + max_sounds);
 }
 
 function playSound(soundName){
 	//console.log(max_sounds);
 	if(max_sounds > 0){
 		max_sounds--;
-		console.log('Max sounds lowered: ' + max_sounds);
+		//console.log('Max sounds lowered: ' + max_sounds);
 		var sound = new Audio(soundBoard[soundName]);
 		sound.loop = false;
 		sound.play();
