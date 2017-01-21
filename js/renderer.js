@@ -176,6 +176,7 @@ function startGame(level) {
 				for (var i=0; i<state.units.length; ++i){
 					updateUnit(state.units[i], now);
 				}
+				sortUnits();
 			} else {
 				if (now>= restartingUntil){
 					restartingSprite.visible = false;
