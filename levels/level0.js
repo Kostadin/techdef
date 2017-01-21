@@ -14,6 +14,20 @@ levels[0] =
 		[ "w", "w", "w", "w", "w", "w", "w", "w", "w", "o", "o", "w", "w", "w", "w", "w", "w", "w", "w", "w"],
 		[ "w", "w", "w", "w", "w", "w", "w", "w", "w", "e", "e", "w", "w", "w", "w", "w", "w", "w", "w", "w"]
 	],
+	"waves" : [
+		{
+			"startMS": 1000,
+			"count": 5,
+			"interval": 500,
+			"x": 3,
+			"y": 0,
+			"speed": 0.1,
+			"maxHP": 100,
+			"sizeX": 32,
+			"sizeY": 32,
+			"sheet": "minion1"
+		}
+	],
 	"definition" : 
 	{
 		"w" : { "type" : "wall", "sprite" : "wall1.png" , "passable" : false, "buildable" : true },

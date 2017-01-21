@@ -164,14 +164,9 @@ function startGame(level) {
 		var now = lastUpdate + STEP_TIME
 		if (!showingScroll && !showingFinal){
 			if (!restarting){
-				/*
-				updateActor(player, now, PLAYER_SPEED);
-				for (var i=0; i<guards.length; ++i){
-					updateActor(guards[i], now, GUARD_SPEED);
+				for (var i=0; i<state.waves.length; ++i){
+					updateWave(state.waves[i], now);
 				}
-				updateLevel(now);
-				*/
-				
 			} else {
 				if (now>= restartingUntil){
 					restartingSprite.visible = false;
@@ -334,6 +329,15 @@ function renderLevel(onLoaded) {
 					tile.sprite = sprite;
 				}
 			}
+			// Draw units
+			var units = unitCell[y][x];
+			for (var i=0;i<tiles.length;++i){
+				var sprite = PIXI.Sprite.fromImage("assets/" + tile.sprite);
+				sprite.position.x = TILE_WIDTH * x;
+				sprite.position.y = TILE_HEIGHT * y;
+				stage.addChild(sprite);
+			}
+			// Draw towers
 		};
 	};
 	

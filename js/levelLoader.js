@@ -8,14 +8,17 @@ function loadLevel(num) {
 	}
 	state.currentLevel = [];
 	state.currentLevelIndex = num;
-
+	
 	var map = levelData.map;
 	var definition = levelData.definition;
 	var currentLevel = state.currentLevel;
+	state.waves = [];
 	state.buildable = new Array(map.length);
 	state.passable = new Array(map.length);
 	state.exit = new Array(map.length);
 	state.flow = new Array(map.length);
+	state.units = [];
+	state.unitCell = new Array(map.length);
 	var exits = [];
 	var dist = new Array(map.length);
 	for (var y = 0; y < map.length; y++) {
@@ -25,12 +28,14 @@ function loadLevel(num) {
 		var exit = new Array(map[y].length);
 		var d = new Array(map[y].length);
 		var flow = new Array(map[y].length);
+		var cell = new Array(map[y].length);
 		for (var x = 0; x < map[y].length; x++) {
 			buildable[x] = true;
 			passable[x] = true;
 			exit[x] = false;
 			d[x] = 99999;
 			flow[x] = [[0, 0]];
+			cell[x] = [];
 			if (!(map[y][x].constructor === Array)){
 				var tileType = map[y][x];
 				var tile = $.extend(true, {} , definition[tileType]);
@@ -65,10 +70,11 @@ function loadLevel(num) {
 		state.passable[y] = passable;
 		state.exit[y] = exit;
 		state.flow[y] = flow;
+		state.unitCell[y] = cell;
 		dist[y] = d;
 	};
 	
-	// Distance and direction calculations
+	// Distance calculations
 	var queue = [];
 	var mods = [[-1, 0], [0, -1], [0, 1], [1, 0]];
 	for (var i=0; i<exits.length; ++i){
@@ -89,6 +95,7 @@ function loadLevel(num) {
 			}
 		}
 	}
+	// Flow calculations
 	for (var cy=0; cy<map.length; ++cy){
 		for (var cx=0; cx<map[cy].length; ++cx){
 			if (state.passable[cy][cx]){
@@ -112,7 +119,15 @@ function loadLevel(num) {
 			}
 		}
 	}
-
+	// Wave management
+	for (var i=0; i<levelData.waves.length; ++i){
+		var wave = $.extend(true, {} , levelData.waves[i]);
+		wave.started = false;
+		wave.passedMS = 0;
+		wave.lastSpawnMS = 0;
+		state.waves.push(wave);
+	}
+	
 /*
 	var playerPos = levelData.player;
 	player = {
