@@ -7,6 +7,7 @@ function renderInit() {
 }
 
 var minionNames = ['minion1', 'minion2', 'minion3', 'minionboss'];
+var towerNames = ['tower1', 'tower2'];
 
 function loadAnimations() {
 	var loader = new PIXI.loaders.Loader();
@@ -14,9 +15,13 @@ function loadAnimations() {
 		var name = minionNames[i];
 		loader.add(name, 'assets/'+name+'/'+name+'_down.json');
 	}
-	
+	for (var i=0; i< towerNames.length; ++i){
+		var name = towerNames[i];
+		loader.add(name, 'assets/'+name+'/'+name+'_fire.json');
+	}
 	loader.once('complete', function() {
 		loadMinionAnimations();
+		loadTowerAnimations();
 	});
 	loader.load();
 }
@@ -32,107 +37,15 @@ function loadMinionAnimations() {
 	}
 }
 
-function loadPlayerAnimations() {
-	/*
-	var rightAnimFrames = [];
-	var leftAnimFrames = [];
-	var upAnimFrames = [];
-	var downAnimFrames = [];
-	for (var i = 0; i < 32; i++) {
-		var iStr = i < 10 ? "0" + i : i.toString();
-		var texture = PIXI.Texture.fromFrame('player_right_' + iStr + '.png');
-		rightAnimFrames[i] = texture;
-		var texture = PIXI.Texture.fromFrame('player_left_' + iStr + '.png');
-		leftAnimFrames[i] = texture;
-		var texture = PIXI.Texture.fromFrame('player_up_' + iStr + '.png');
-		upAnimFrames[i] = texture;
-		var texture = PIXI.Texture.fromFrame('player_down_' + iStr + '.png');
-		downAnimFrames[i] = texture;
-	};
-
-	var rightIdleAnimFrames = [];
-	var leftIdleAnimFrames = [];
-	var upIdleAnimFrames = [];
-	var donwIdleAnimFrames = [];
-	for (var i = 0; i < 16; i++) {
-		var iStr = i < 10 ? "0" + i : i.toString();
-		var texture = PIXI.Texture.fromFrame('player_idle_right_' + iStr + '.png');
-		rightIdleAnimFrames[i] = texture;
-		var texture = PIXI.Texture.fromFrame('player_idle_left_' + iStr + '.png');
-		leftIdleAnimFrames[i] = texture;
-		var texture = PIXI.Texture.fromFrame('player_idle_up_' + iStr + '.png');
-		upIdleAnimFrames[i] = texture;
-		var texture = PIXI.Texture.fromFrame('player_idle_down_' + iStr + '.png');
-		donwIdleAnimFrames[i] = texture;
+function loadTowerAnimations() {
+	towerAnimations = {};
+	for (var i=0; i< towerNames.length; ++i){
+		var name = towerNames[i];
+		towerAnimations[name] = [];
+		for(var j=1; j<=2; ++j){
+			towerAnimations[name].push(PIXI.Texture.fromFrame(name+'_fire'+j+'.png'));
+		}
 	}
-
-	playerAnimations = {
-		"walkRight" : rightAnimFrames,
-		"walkLeft" : leftAnimFrames,
-		"walkUp" : upAnimFrames,
-		"walkDown" : downAnimFrames,
-		"idleRight" : rightIdleAnimFrames,
-		"idleLeft" : leftIdleAnimFrames,
-		"idleUp" : upIdleAnimFrames,
-		"idleDown" : donwIdleAnimFrames
-	}
-
-	var keyToAnim = {
-		"walkRight" : rightAnimFrames,
-		"walkLeft" : leftAnimFrames,
-		"walkUp" : upAnimFrames,
-		"walkDown" : downAnimFrames,
-		"idleRight" : rightIdleAnimFrames,
-		"idleLeft" : leftIdleAnimFrames,
-		"idleUp" : upIdleAnimFrames,
-		"idleDown" : donwIdleAnimFrames
-	}
-	*/
-}
-
-function loadGuardAnimations() {
-	/*var rightAnimFrames = [];
-	var leftAnimFrames = [];
-	var upAnimFrames = [];
-	var downAnimFrames = [];
-	for (var i = 0; i < 8; i++) {
-		var iStr = i < 10 ? "0" + i : i.toString();
-		var texture = PIXI.Texture.fromFrame('guard_1_right_' + iStr + '.png');
-		rightAnimFrames[i] = texture;
-		var texture = PIXI.Texture.fromFrame('guard_1_left_' + iStr + '.png');
-		leftAnimFrames[i] = texture;
-		var texture = PIXI.Texture.fromFrame('guard_1_up_' + iStr + '.png');
-		upAnimFrames[i] = texture;
-		var texture = PIXI.Texture.fromFrame('guard_1_down_' + iStr + '.png');
-		downAnimFrames[i] = texture;
-	};
-
-	var rightIdleAnimFrames = [];
-	var leftIdleAnimFrames = [];
-	var upIdleAnimFrames = [];
-	var donwIdleAnimFrames = [];
-	for (var i = 0; i < 14; i++) {
-		var iStr = i < 10 ? "0" + i : i.toString();
-		var texture = PIXI.Texture.fromFrame('guard_1_idle_right_' + iStr + '.png');
-		rightIdleAnimFrames[i] = texture;
-		var texture = PIXI.Texture.fromFrame('guard_1_idle_left_' + iStr + '.png');
-		leftIdleAnimFrames[i] = texture;
-		var texture = PIXI.Texture.fromFrame('guard_1_idle_up_' + iStr + '.png');
-		upIdleAnimFrames[i] = texture;
-		var texture = PIXI.Texture.fromFrame('guard_1_idle_down_' + iStr + '.png');
-		donwIdleAnimFrames[i] = texture;
-	}
-
-	guardAnimations = {
-		"walkRight" : rightAnimFrames,
-		"walkLeft" : leftAnimFrames,
-		"walkUp" : upAnimFrames,
-		"walkDown" : downAnimFrames,
-		"idleRight" : rightIdleAnimFrames,
-		"idleLeft" : leftIdleAnimFrames,
-		"idleUp" : upIdleAnimFrames,
-		"idleDown" : donwIdleAnimFrames
-	}*/
 }
 
 function startGame(level) {

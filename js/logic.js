@@ -325,8 +325,21 @@ function buildTower(gridY, gridX, template_key){
 		tower.x = gridX*TILE_WIDTH+HALF_TILE_WIDTH;
 		tower.y = gridY*TILE_HEIGHT+HALF_TILE_WIDTH;
 		tower.lastFireMS = 0;
-		
+		tower.sprite1 = PIXI.Sprite.fromFrame(tower.sheet+'_fire1.png');
+		tower.sprite2 = PIXI.Sprite.fromFrame(tower.sheet+'_fire2.png');
+		tower.sprite1.visibible = true;
+		tower.sprite2.visibible = false;
+		tower.sprite1.x = gridX*TILE_WIDTH;
+		tower.sprite2.x = tower.sprite1.x;
+		tower.sprite1.y = gridY*TILE_HEIGHT;
+		tower.sprite2.y = tower.sprite1.y;
+		stage.add(sprite1);
+		stage.add(sprite2);
+		state.towers.push(tower);
 	}
+}
+
+function destroyTower(tower){
 }
 
 function playerDied(now) {
