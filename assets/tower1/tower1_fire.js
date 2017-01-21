@@ -1,21 +1,21 @@
 {
 "frames": {
-	"tower1.png": {
+	"tower1_fire1.png": {
 		"frame": {"x":0, "y":61, "w":52, "h":60},
 		"spriteSourceSize": {"x":6,"y":0,"w":64,"h":64},
 		"sourceSize": {"w":64,"h":64}
 	},
-	"tower1a.png": {
+	"tower1_fire2.png": {
 		"frame": {"x":53, "y":0, "w":52, "h":60},
 		"spriteSourceSize": {"x":6,"y":0,"w":64,"h":64},
 		"sourceSize": {"w":64,"h":64}
 	},
-	"tower1b.png": {
+	"tower1_fire3.png": {
 		"frame": {"x":53, "y":61, "w":52, "h":60},
 		"spriteSourceSize": {"x":6,"y":0,"w":64,"h":64},
 		"sourceSize": {"w":64,"h":64}
 	},
-	"tower1c.png": {
+	"tower1_fire4.png": {
 		"frame": {"x":0, "y":0, "w":52, "h":60},
 		"spriteSourceSize": {"x":6,"y":0,"w":64,"h":64},
 		"sourceSize": {"w":64,"h":64}
