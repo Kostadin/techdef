@@ -141,14 +141,14 @@ function loadGuardAnimations() {
 	}*/
 }
 
-function startGame() {
+function startGame(level) {
 	//mainTheme.pause();
 	//backgroundTrack.currentTime = 0;
 	//backgroundTrack.play();
 
 	$('#mainMenu').hide();
 
-	loadLevel(0);
+	loadLevel(level);
 
 	renderInit();
 	renderLevel();

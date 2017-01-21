@@ -16,7 +16,7 @@
 <script type="text/javascript">
 $(function() {
     loadAnimations();
-	$('#btnPlay').click(startGame);
+	$('#btnPlay').click(function(){ startGame(0) });
 	var credits = ['Kostadin Vodenicharov - Dev', 'Dimitar Batashki - Dev/Art' , 'Nayden Pendov - Dev', 'Jordan Panov - Level design'];
 	shuffle(credits);
 	var logstr = 'Credits\n-------\n';
@@ -24,6 +24,7 @@ $(function() {
 		$('#creditsNames').append('<p>'+credits[i]+'</p>');
 		logstr+=credits[i]+'\n';
 	}
+	$('#btnResume').click(function(){ startGame(localStorage['level'])})
 	console.log(logstr);
 	$('#credits').click(function(){
 		$('#credits').hide();
@@ -77,7 +78,6 @@ $(function() {
 		resumeButton = document.getElementById('btnResume');
 		resumeButton.style = "display: block";
 	}
-	console.log(localStorage);
 </script>
 </body>
 </html>

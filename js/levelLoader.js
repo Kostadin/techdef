@@ -1,6 +1,5 @@
 function loadLevel(num) {
 	localStorage.setItem('level', num);
-	console.log(localStorage);
 
 	var levelData = levels[num];
 
