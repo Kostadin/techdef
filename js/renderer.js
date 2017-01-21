@@ -322,6 +322,10 @@ function renderLevel(onLoaded) {
 			if (!(tiles.constructor === Array)){
 				tiles = [tiles];
 			}
+			else
+			{
+				debugger;
+			}
 			for (var i=0;i<tiles.length;++i){
 				var tile = tiles[i];
 				if (typeLoader[tile.type]) {

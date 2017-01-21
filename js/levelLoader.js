@@ -15,9 +15,22 @@ function loadLevel(num) {
 	for (var y = 0; y < map.length; y++) {
 		currentLevel[y] = [];
 		 for (var x = 0; x < map[y].length; x++) {
-			var tileType = map[y][x];
-			var tile = $.extend(true, {} , definition[tileType]);
-			currentLevel[y].push(tile);
+			
+			if (!(map[y][x].constructor === Array)){
+				var tileType = map[y][x];
+				var tile = $.extend(true, {} , definition[tileType]);
+				currentLevel[y].push(tile);
+			}
+			else
+			{
+				var tiles = [];
+				for (var i=0; i<map[y][x].length; ++i){
+					var tileType = map[y][x][i];
+					var tile = $.extend(true, {} , definition[tileType]);
+					tiles.push(tile);
+				}
+				currentLevel[y].push(tiles);
+			}
 		};
 	};
 /*
