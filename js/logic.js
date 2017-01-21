@@ -26,6 +26,28 @@ function spawn(wave, now){
 	stage.addChild(sprite);
 }
 
+function removeUnit(unit){
+	var gridX = Math.floor(unit.x/TILE_WIDTH);
+	var gridY = Math.floor(unit.y/TILE_WIDTH);
+	var oldUnitCell = state.unitCell[gridY][gridX];
+	for (var i=0;i<oldUnitCell.length;++i){
+		if (oldUnitCell[i] === unit){
+			oldUnitCell.splice(i, 1);
+			break;
+		}
+	}
+	for (var i=0; i<state.units.length; ++i){
+		if (state.units === unit){
+			state.units.splice(i, 1);
+		}
+	}
+	stage.removeChild(unit.sprite);
+}
+
+function unitExits(unit){
+	removeUnit(unit);
+}
+
 function updateWave(wave, now){
 	if (!wave.started){
 		if (wave.startMS <= now){
@@ -235,6 +257,34 @@ function updateUnit(unit, now){
 				oldUnitCell.splice(i, 1);
 				newUnitCell.push(unit);
 				break;
+			}
+		}
+	}
+	
+	// Check the exit
+	if (state.exit[gridY][gridX]){
+		unitExits(unit);
+	}
+}
+
+function unitRenderSortComparator(a, b){
+	if (a.y === b.y){
+		return a.x - b.x;
+	} else {
+		return a.y - b.y;
+	}
+}
+
+function sortUnits(){
+	for (var y=0; y<state.levelGridHeight; ++y){
+		for (var x=0; x<state.levelGridWidth; ++x){
+			if (state.unitCell[y][x].length>1){
+				state.unitCell[y][x].sort(unitRenderSortComparator);
+				for (var i=0; i<state.unitCell[y][x].length; ++i){
+					var unit = state.unitCell[y][x][i];
+					stage.removeChild(unit.sprite);
+					stage.addChild(unit.sprite);
+				}
 			}
 		}
 	}
