@@ -9,6 +9,8 @@ function loadLevel(num) {
 	}
 	state.currentLevel = [];
 	state.currentLevelIndex = num;
+	state.passable = [];
+	state.buildable = [];
 
 	var map = levelData.map;
 	var definition = levelData.definition;
