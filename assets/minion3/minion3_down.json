@@ -1,0 +1,20 @@
+{
+"frames": {
+	"minion3_down1.png": {
+		"frame": {"x":0, "y":33, "w":32, "h":32},
+		"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+		"sourceSize": {"w":32,"h":32}
+	},
+	"minion3_down2.png": {
+		"frame": {"x":0, "y":0, "w":32, "h":32},
+		"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+		"sourceSize": {"w":32,"h":32}
+	}
+
+},
+"meta": {
+	"image": "minion3_down.png",
+	"size": {"w": 33, "h": 66},
+	"scale": "1"
+}
+}

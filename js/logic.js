@@ -21,11 +21,25 @@ function spawn(wave, now){
 	var ucY = Math.floor(unit.y/TILE_HEIGHT);
 	var ucX = Math.floor(unit.x/TILE_WIDTH);
 	state.unitCell[ucY][ucX].push(unit);
+	/*
 	var sprite = PIXI.Sprite.fromImage("assets/" + unit.sheet+"/"+unit.sheet+"_down1.png");
 	sprite.position.x = unit.x - (unit.halfSizeX);
 	sprite.position.y = unit.y - (unit.halfSizeY);
 	unit.sprite = sprite;
 	stage.addChild(sprite);
+	*/
+	var sprite = new PIXI.Container();
+	sprite.anchor = new PIXI.Point(0.5, 0.5);
+	unit.sprite = sprite;
+	var clip = new PIXI.extras.AnimatedSprite(minionAnimations[unit.sheet]);
+	clip.visible = true;
+	clip.position = new PIXI.Point(0, 0);
+	clip.animationSpeed = MINION_ANIM_SCALE;
+	sprite.position.x = unit.x - (unit.halfSizeX);
+	sprite.position.y = unit.y - (unit.halfSizeY);
+	sprite.addChild(clip);
+	stage.addChild(sprite);
+	clip.play();
 }
 
 function removeUnit(unit){
@@ -41,6 +55,7 @@ function removeUnit(unit){
 	for (var i=0; i<state.units.length; ++i){
 		if (state.units === unit){
 			state.units.splice(i, 1);
+			break;
 		}
 	}
 	stage.removeChild(unit.sprite);
@@ -303,6 +318,80 @@ function sortUnits(){
 					stage.addChild(unit.sprite);
 				}
 			}
+		}
+	}
+}
+
+function buildTower(gridY, gridX, template_key){
+	if (state.buildable[gridY][gridX]){
+		tower = $.extend(true, {} , state.tower_templates[template_key]);
+		tower.gridX = gridX;
+		tower.gridY = gridY;
+		tower.x = gridX*TILE_WIDTH+HALF_TILE_WIDTH;
+		tower.y = gridY*TILE_HEIGHT+HALF_TILE_WIDTH;
+		tower.sqrRange = tower.range*tower.range;
+		tower.lastFireMS = 0;
+		tower.sprite1 = PIXI.Sprite.fromFrame(tower.sheet+'_fire1.png');
+		tower.sprite2 = PIXI.Sprite.fromFrame(tower.sheet+'_fire2.png');
+		tower.sprite1.visible = true;
+		tower.sprite2.visible = false;
+		tower.sprite1.x = gridX*TILE_WIDTH;
+		tower.sprite2.x = tower.sprite1.x;
+		tower.sprite1.y = gridY*TILE_HEIGHT;
+		tower.sprite2.y = tower.sprite1.y;
+		stage.addChild(tower.sprite1);
+		stage.addChild(tower.sprite2);
+		state.towers.push(tower);
+	}
+}
+
+function destroyTower(tower){
+	stage.removeChild(tower.sprite1);
+	stage.removeChild(tower.sprite2);
+	for (var i=0; i<state.towers.length; ++i){
+		state.towers.splice(i, 1);
+		break;
+	}
+	state.buildable[tower.gridY][tower.gridX] = true;
+}
+
+function prioritiseForPlasma(a, b){
+	if (a.maxHP === b.maxHP){
+		return (a.hp - b.hp);
+	} else {
+		return (a.maxHP - b.maxHP);
+	}
+}
+
+function updateTower(tower, now){
+	// Turn off
+	if (tower.lastFireMS < now - tower.duration){
+		tower.sprite1.visible = true;
+		tower.sprite2.visible = false;
+	}
+	
+	// Try firing
+	if (tower.sprite1.visible && (tower.lastFireMS + tower.interval < now)){
+		if (tower.projectile === "plasma"){
+			var potential = [];
+			for (var i=0; i<state.units.length; ++i){
+				var unit = state.units[i];
+				if (sqrDist(tower, unit)<=tower.sqrRange){
+					potential.push(unit);
+				}
+			}
+			if (potential.length>1){
+				potential.sort(prioritiseForPlasma);
+			}
+			if (potential.length>0){
+				var target = potential[0];
+				// Emit projectile
+				tower.sprite1.visible = false;
+				tower.sprite2.visible = true;
+				tower.lastFireMS = now;
+			}
+		} else if (tower.projectile === "laser"){
+		} else if (tower.projectile === "granade"){
 		}
 	}
 }

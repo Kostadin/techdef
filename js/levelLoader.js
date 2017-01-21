@@ -13,6 +13,8 @@ function loadLevel(num) {
 	var definition = levelData.definition;
 	var currentLevel = state.currentLevel;
 	state.waves = [];
+	state.towers = [];
+	state.tower_templates = levelData.tower_templates;
 	state.buildable = new Array(map.length);
 	state.passable = new Array(map.length);
 	state.exit = new Array(map.length);
@@ -129,30 +131,6 @@ function loadLevel(num) {
 		wave.lastSpawnMS = 0;
 		state.waves.push(wave);
 	}
-	
-/*
-	var playerPos = levelData.player;
-	player = {
-		startingPos : playerPos,
-		dir : "s"
-	};
-
-	guards = [];
-	var guardsData = levelData.guards;
-	for(var i=0; i<guardsData.length; i++){
-		var guard = {};
-
-		guard.startingPos = {x: guardsData[i].x, y: guardsData[i].y};
-		guard.dir = guardsData[i].dir;
-		guard.currentActionIndex = -1;
-		guard.waitTimeElapsed = 0;
-		guard.waitFor = 0;
-		guard.waiting = true;
-		guard.routine = guardsData[i].routine;
-
-		guards[i] = guard;
-	}
-*/
 }
 
 var interactableUpdates = {
