@@ -30,6 +30,7 @@ body{
 	height:720px;
 	z-index:100;
 	background-image: url('../assets/backgr.png');
+	background-repeat: no-repeat;
 	padding-top: 100px;
 }
 
