@@ -81,6 +81,7 @@ function unitExits(unit){
 function gameOver(){
 	$('#level').hide();
 	$('#gameOver').show();
+	$('#stats').hide();
 	var now = lastUpdate + STEP_TIME;
 	restartingSince = now;
 	restartingUntil = now + restartingLengthMS;
@@ -767,6 +768,9 @@ function goToNextLevel() {
 	if (levels.length>state.currentLevelIndex+1){
 		loadLevel(state.currentLevelIndex+1);
 		renderLevel();
+		gameStartTime = Date.now();
+		currentTime = gameStartTime;
+		lastUpdate = 0;//currentTime;
 	} else {
 		showFinal();
 	}

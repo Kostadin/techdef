@@ -60,6 +60,7 @@ function startGame(level) {
 	//backgroundTrack.play();
 
 	$('#mainMenu').hide();
+	$('#stats').show();
 
 	loadLevel(level);
 
