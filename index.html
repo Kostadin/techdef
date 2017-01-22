@@ -34,6 +34,10 @@ $(function() {
 		$('#mainMenu').hide();
 		$('#credits').show();
 	});
+	$('#gameOver').click(function(){
+		$('#gameOver').hide();
+		$('#mainMenu').show();
+	})
 });
 </script>
 </head>
@@ -65,8 +69,8 @@ $(function() {
 			</div>
 			<div id="level" class="gameScreen" style="display:none;"></div>
 			<div id="stats">
-					<div id="healthbar">test</div>
-					<div id="money">1000 gp</div>
+					<div id="healthbar">HP</div>
+					<div id="money">1000</div>
 			</div>
 			<div id="gameOver" class="gameScreen" style="display:none;">
 			</div>

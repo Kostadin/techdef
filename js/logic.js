@@ -69,7 +69,7 @@ function unitExits(unit){
 
 	removeUnit(unit);
 	var health_bar = document.getElementById('healthbar');
-	console.log("health " + health_bar.style.width);
+	//console.log("health " + health_bar.style.width);
 	health = health - 50;
 	health_bar.style.width =  health;
 	if(health <= 0){
