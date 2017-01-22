@@ -95,6 +95,18 @@ function startGame(level) {
 				for (var i=0; i<state.towers.length; ++i){
 					updateTower(state.towers[i], now);
 				}
+				if (state.units.length === 0){
+					var waveFound = false;
+					for (var i=0; i<state.waves.length; ++i){
+						if (state.waves[i].count>0){
+							waveFound = true;
+							break;
+						}
+					}
+					if (!waveFound){
+						goToNextLevel();
+					}
+				}
 			} else {
 				if (now>= restartingUntil){
 					location.reload();
