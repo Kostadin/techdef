@@ -67,6 +67,7 @@ function startGame(level) {
 	renderLevel();
 	// Debug towers
 	buildTower(8, 7, "q");
+	buildTower(7, 5, "w");
 	startUpdate();
 
 	addMouseHandler();
@@ -89,6 +90,11 @@ function startGame(level) {
 					updateUnit(state.units[i], now);
 				}
 				sortUnits();
+				for (var i=0; i<state.projectiles.length; ++i){
+					var sprite = state.projectiles[i].sprite;
+					stage.removeChild(sprite);
+					stage.addChild(sprite);
+				}
 				for (var i=0; i<state.towers.length; ++i){
 					updateTower(state.towers[i], now);
 				}

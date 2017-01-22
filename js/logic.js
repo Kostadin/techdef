@@ -369,6 +369,47 @@ function prioritiseForPlasma(a, b){
 	}
 }
 
+function fireLaser(startX, startY, endX, endY, tower, now){
+	tower.sprite1.visible = false;
+	tower.sprite2.visible = true;
+	tower.lastFireMS = now;
+	var projectile = {
+		type: tower.projectile,
+		startX: startX,
+		startY: startY,
+		endX: endX,
+		endY: endY,
+		x: startX,
+		y: startY,
+		originX: tower.x,
+		originY: tower.y-24,
+		damage: tower.damage,
+		speed: 8,
+		width: 128,
+		height: 32
+	};
+	var sprite = PIXI.Sprite.fromImage('assets/red_laser.png');
+	sprite.blendMode = PIXI.BLEND_MODES.SCREEN;
+	sprite.anchor.x = 1;
+	sprite.anchor.y = 0.5;
+	var dirVector = {x: (projectile.endX - projectile.startX), y: (projectile.endY - projectile.startY)};
+	var tripLength = vecLength(dirVector);
+	projectile.speed = tripLength/(Math.ceil(tower.duration/STEP_TIME));
+	normalize(dirVector);
+	projectile.dirVector = dirVector;
+	scaleVector(projectile.dirVector, projectile.speed);
+	sprite.position.x = projectile.x;
+	sprite.position.y = projectile.y;
+	projectile.sprite = sprite;
+	var originVector = {x: (projectile.x-projectile.originX), y: (projectile.y-projectile.originY)};
+	var laserLength = vecLength(originVector);
+	normalize(originVector);
+	projectile.sprite.rotation = Math.atan2(originVector.y, originVector.x);
+	projectile.sprite.scale.x = laserLength/projectile.width;
+	state.projectiles.push(projectile);
+	stage.addChild(projectile.sprite);
+}
+
 function updateTower(tower, now){
 	// Turn off
 	if (tower.lastFireMS < now - tower.duration){
@@ -427,12 +468,83 @@ function updateTower(tower, now){
 				playSound("pew");
 			}
 		} else if (tower.projectile === "laser"){
+			var coordsInRange = [];
+			var potentialDamage = [];
+			var maxDamageGroup = [];
+			var maxDamage = 0;
+			var currentDamage = 0;
+			var currentGroup = [];
+			var visited = [];
+			for (var gridY=0; gridY<state.levelGridHeight; ++gridY){
+				for (var gridX=0; gridX<state.levelGridWidth; ++gridX){
+					if ((state.passable[gridY][gridX])&&(sqrVecLength({x: (gridX*TILE_WIDTH+HALF_TILE_WIDTH-tower.x), y: (gridY*TILE_HEIGHT+HALF_TILE_HEIGHT-tower.y)})<tower.range*tower.range)){
+						coordsInRange.push([gridY, gridX]);
+						visited.push(false);
+						potentialDamage.push(state.unitCell[gridY][gridX].length*tower.damage);
+					}
+				}
+			}
+			if ((coordsInRange.length === 1)&&(potentialDamage[0] > 0)){
+				// Fire on a single cell
+				fireLaser(coordsInRange[0][1]*TILE_WIDTH, coordsInRange[0][0]*TILE_HEIGHT, (coordsInRange[0][1]+1)*TILE_WIDTH, (coordsInRange[0][0]+1)*TILE_HEIGHT, tower, now);
+			} else if ((coordsInRange.length === 2)&&(potentialDamage[0]+potentialDamage[1] > 0)){
+				// Fire on two cells
+				fireLaser(coordsInRange[0][1]*TILE_WIDTH+HALF_TILE_WIDTH, coordsInRange[0][0]*TILE_HEIGHT+HALF_TILE_HEIGHT, coordsInRange[1][1]*TILE_WIDTH+HALF_TILE_WIDTH, coordsInRange[1][0]*TILE_HEIGHT+HALF_TILE_HEIGHT, tower, now);
+			} else if (coordsInRange.length >= 3){
+				for (var i=0; i<coordsInRange.length; ++i){
+					currentGroup.push(coordsInRange[i]);
+					visited[i] = true;
+					currentDamage += potentialDamage[i];
+					for (var j=0; j<coordsInRange.length; ++j){
+						if (!visited[j]){
+							var condj1 = (coordsInRange[j][0]-coordsInRange[i][0] === 1);
+							var condj2 = (coordsInRange[j][1]-coordsInRange[i][1] === 1);
+							var condj3 = (coordsInRange[j][0]-coordsInRange[i][0] === 0);
+							var condj4 = (coordsInRange[j][1]-coordsInRange[i][1] === 0);
+							if ((condj1||condj2)&&(condj3||condj4)){
+								currentGroup.push(coordsInRange[j]);
+								visited[j] = true;
+								currentDamage += potentialDamage[j];
+								for (var k=0; k<coordsInRange.length; ++k){
+									if (!visited[k]){
+										var condk1 = (coordsInRange[k][0]-coordsInRange[j][0] === 1);
+										var condk2 = (coordsInRange[k][1]-coordsInRange[j][1] === 1);
+										var condk3 = (coordsInRange[k][0]-coordsInRange[j][0] === 0);
+										var condk4 = (coordsInRange[k][1]-coordsInRange[j][1] === 0);
+										if ((condk1||condk2)&&(condk3||condk4)){
+											currentGroup.push(coordsInRange[k]);
+											currentDamage += potentialDamage[k];
+											if (currentDamage > maxDamage){
+												maxDamage = currentDamage;
+												maxGroup = $.extend(true, {} , currentGroup);
+											}
+											currentDamage -= potentialDamage[k];
+											currentGroup.splice(currentGroup.length-1, 1);
+										}
+									}
+								}
+								currentDamage -= potentialDamage[j];
+								visited[j] = false;
+								currentGroup.splice(currentGroup.length-1, 1);
+							}
+						}
+					}
+					currentDamage -= potentialDamage[i];
+					visited[i] = false;
+					currentGroup.splice(currentGroup.length-1, 1);
+				}
+				if (maxDamage > 0){
+					// Fire on three cells
+					fireLaser(maxGroup[0][1]*TILE_WIDTH+HALF_TILE_WIDTH, maxGroup[0][0]*TILE_HEIGHT+HALF_TILE_HEIGHT, maxGroup[2][1]*TILE_WIDTH+HALF_TILE_WIDTH, maxGroup[2][0]*TILE_HEIGHT+HALF_TILE_HEIGHT, tower, now);
+				}
+			}
 		} else if (tower.projectile === "granade"){
 		}
 	}
 }
 
 function removeProjectile(projectile){
+	projectile.sprite.visible = false;
 	stage.removeChild(projectile.sprite);
 	for (var i=0; i<state.projectiles.length; ++i){
 		if (state.projectiles[i] === projectile){
@@ -442,27 +554,54 @@ function removeProjectile(projectile){
 	}
 }
 
+function damageUnits(point, projectile, tower){
+	for (var i=0; i<state.units.length; ++i){
+		var unit = state.units[i];
+		if (sqrDist(unit, point)<(Math.pow(unit.avgRadius*1.5, 2))){
+			// Damage calculation
+			unit.hp -= projectile.damage;
+			// Target elimination
+			if (unit.hp <= 0){
+				removeUnit(unit);
+			}
+		}
+	}
+}
+
 function updateProjectile(projectile, now){
+	if (projectile.remove === true){
+		removeProjectile(projectile);
+	}
 	if (projectile.type === "plasma"){
 		var distVec = {x: (projectile.endX - projectile.x), y: (projectile.endY - projectile.y)};
 		if (sqrVecLength(distVec)<projectile.speed*projectile.speed){
-			removeProjectile(projectile);
-			for (var i=0; i<state.units.length; ++i){
-				var unit = state.units[i];
-				if (sqrDist(unit, {x: projectile.endX, y: projectile.endY})<(unit.avgRadius*unit.avgRadius)){
-					// Damage calculation
-					unit.hp -= projectile.damage;
-					// Target elimination
-					if (unit.hp <= 0){
-						removeUnit(unit);
-					}
-				}
-			}
+			projectile.remove = true;
+			projectile.sprite.scale.x = projectile.sprite.scale.x/2.0;
+			projectile.sprite.x = projectile.endX;
+			projectile.sprite.y = projectile.endY;
+			damageUnits({x: projectile.endX, y: projectile.endY}, projectile, tower);
 		} else {
 			pointAdd(projectile, projectile.dirVector);
 			projectile.sprite.x = projectile.x;
 			projectile.sprite.y = projectile.y;
 		}
+	} else if (projectile.type === "laser"){
+		var distVec = {x: (projectile.endX - projectile.x), y: (projectile.endY - projectile.y)};
+		if (sqrVecLength(distVec)<projectile.speed*projectile.speed){
+			projectile.remove = true;
+			projectile.x = projectile.endX;
+			projectile.y = projectile.endY;
+		} else {
+			pointAdd(projectile, projectile.dirVector);
+		}
+		projectile.sprite.x = projectile.x;
+		projectile.sprite.y = projectile.y;
+		var originVector = {x: (projectile.x-projectile.originX), y: (projectile.y-projectile.originY)};
+		var laserLength = vecLength(originVector);
+		normalize(originVector);
+		projectile.sprite.rotation = Math.atan2(originVector.y, originVector.x);
+		projectile.sprite.scale.x = laserLength/projectile.width;
+		damageUnits({x: projectile.x, y: projectile.y}, projectile, tower);
 	}
 }
 

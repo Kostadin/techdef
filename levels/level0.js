@@ -94,10 +94,10 @@ levels[0] =
 		},
 		"w" : {
 			"projectile": "laser",
-			"interval": 250,
-			"duration": 50,
-			"range": 220,
-			"damage": 10,
+			"interval": 330,
+			"duration":250,
+			"range": 350,
+			"damage": 50,
 			"sheet": "tower3"
 		},
 		"e" : {
