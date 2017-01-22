@@ -90,6 +90,7 @@ levels[0] =
 			"duration": 50,
 			"range": 220,
 			"damage": 100,
+			"aoe": 0,
 			"sheet": "tower1"
 		},
 		"w" : {
@@ -98,6 +99,7 @@ levels[0] =
 			"duration":250,
 			"range": 350,
 			"damage": 50,
+			"aoe": 10,
 			"sheet": "tower3"
 		},
 		"e" : {
@@ -106,6 +108,7 @@ levels[0] =
 			"duration": 50,
 			"range": 220,
 			"damage": 10,
+			"aoe": 32,
 			"sheet": "tower2"
 		}
 	}
