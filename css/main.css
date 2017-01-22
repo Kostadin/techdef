@@ -157,7 +157,7 @@ body{
 
 #stats {
 	position: relative;
-	/* top: -50px; */
+	top: -15px;
 	left: 50px;
 	display: block;
 	text-align: left;
