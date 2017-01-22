@@ -277,7 +277,8 @@ levels[1] =
 			"range": 220,
 			"damage": 20,
 			"aoe": 0,
-			"sheet": "tower1"
+			"sheet": "tower1",
+			"cost": 100
 		},
 		"w" : {
 			"projectile": "laser",
@@ -286,7 +287,8 @@ levels[1] =
 			"range": 350,
 			"damage": 20,
 			"aoe": 10,
-			"sheet": "tower3"
+			"sheet": "tower3",
+			"cost": 500
 		},
 		"e" : {
 			"projectile": "granade",
@@ -295,7 +297,8 @@ levels[1] =
 			"range": 220,
 			"damage": 40,
 			"aoe": 32,
-			"sheet": "tower2"
+			"sheet": "tower2",
+			"cost": 250
 		}
 	}
 };
