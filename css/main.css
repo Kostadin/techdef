@@ -1,12 +1,12 @@
 ﻿html{
 	margin:0px;
-	overflow:hidden;
+	/* overflow:hidden; */
 }
 
 body{
 	background-color:black;
 	margin:0px;
-	overflow:hidden;
+	/* overflow:hidden; */
 }
 
 #container{
@@ -157,7 +157,7 @@ body{
 
 #stats {
 	position: relative;
-	top: -50px;
+	/* top: -50px; */
 	left: 50px;
 	display: block;
 	text-align: left;
@@ -173,5 +173,10 @@ body{
 
 #money {
 	display: block;
+	color: white;
+}
+
+#money::before{
+	content: "Gold: ";
 	color: white;
 }
