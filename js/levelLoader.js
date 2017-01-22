@@ -36,7 +36,7 @@ function loadLevel(num) {
 		var flow = new Array(map[y].length);
 		var cell = new Array(map[y].length);
 		for (var x = 0; x < map[y].length; x++) {
-			buildable[x] = true;
+			buildable[x] = false;
 			passable[x] = true;
 			exit[x] = false;
 			d[x] = 99999;
@@ -45,7 +45,7 @@ function loadLevel(num) {
 			if (!(map[y][x].constructor === Array)){
 				var tileType = map[y][x];
 				var tile = $.extend(true, {} , definition[tileType]);
-				buildable[x] &= tile.buildable;
+				buildable[x] |= tile.buildable;
 				passable[x] &= tile.passable;
 				if (tile.type === "exit" ){
 					exit[x] = true;

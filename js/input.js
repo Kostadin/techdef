@@ -1,7 +1,7 @@
 function handleClick(x, y){
 	if (!showingScroll){
 		var pos =  realToMapPos({x: x, y: y});
-		console.log(pos);
+		//console.log(pos);
 		playerClickedOn( pos );
 	} else {
 		if (!showingFinal){

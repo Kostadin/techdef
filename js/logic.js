@@ -328,7 +328,7 @@ function sortUnits(){
 }
 
 function buildTower(gridY, gridX, template_key){
-	if (state.tower_templates[template_key] === null){
+	if (state.tower_templates[template_key] === undefined){
 		return;
 	}
 	if (state.buildable[gridY][gridX]){
@@ -716,8 +716,8 @@ function playerClickedOn(pos){
 			}
 			else
 			{
-				if ((state.buildable[pos.Y][pos.X])){ //check available gold
-				
+				if ((state.buildable[pos.y][pos.x])){
+					buildTower(pos.y, pos.x, command);
 				}
 			}
 		}
