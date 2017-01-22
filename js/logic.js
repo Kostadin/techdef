@@ -384,6 +384,7 @@ function buildTower(gridY, gridX, template_key){
 		stage.addChild(tower.sprite2);
 		state.buildable[gridY][gridX] = false;
 		state.towers.push(tower);
+		updateMoney(-tower.cost);
 	}
 }
 

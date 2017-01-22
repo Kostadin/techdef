@@ -300,5 +300,6 @@ levels[1] =
 			"sheet": "tower2",
 			"cost": 250
 		}
-	}
+	},
+	money: 750,
 };
