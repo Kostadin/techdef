@@ -29,7 +29,7 @@ body{
 	width:1280px;
 	height:720px;
 	z-index:100;
-	background-image: url('../assets/ASCENTION-title-and-gameOver.png');
+	background-image: url('../assets/backgr.png');
 	padding-top: 100px;
 }
 
@@ -128,7 +128,7 @@ body{
 }
 
 .button {
-	margin-top:50px;
+	margin-top:80px;
 	margin-left:auto;
 	margin-right:auto;
 	width:250px;
