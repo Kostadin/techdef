@@ -1,5 +1,3 @@
 # techdef
 
-1
-2
-3
+Made in Plovdiv Game Jam 2017 by Team ProgArt
