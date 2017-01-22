@@ -71,7 +71,6 @@ function unitExits(unit){
 }
 
 function killUnit(unit, projectile_type){
-	playSound("explosion");
 	removeUnit(unit);
 }
 
@@ -370,6 +369,7 @@ function prioritiseForPlasma(a, b){
 }
 
 function fireLaser(startX, startY, endX, endY, tower, now){
+	playSound("splash");
 	tower.sprite1.visible = false;
 	tower.sprite2.visible = true;
 	tower.lastFireMS = now;
@@ -670,6 +670,7 @@ function updateProjectile(projectile, now){
 		{
 			var distVec = {x: (projectile.endX - projectile.x), y: (projectile.endY - projectile.y)};
 			if (sqrVecLength(distVec)<projectile.speed*projectile.speed){
+				playSound("explosion");
 				projectile.wait = 4;
 				//projectile.sprite.visible = false;
 				projectile.sprite.destroy();
