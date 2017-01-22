@@ -1,7 +1,7 @@
 function handleClick(x, y){
 	if (!showingScroll){
 		var pos =  realToMapPos({x: x, y: y});
-		console.log(pos);
+		//console.log(pos);
 		playerClickedOn( pos );
 	} else {
 		if (!showingFinal){
@@ -13,7 +13,7 @@ function handleClick(x, y){
 
 function addMouseHandler(){
 	$("body").on('keydown', function (e){
-		command = String.fromCharCode(e.which);
+		command = String.fromCharCode(e.which).toLowerCase();
 	});
 	$("canvas").on("mousedown", function(event) {
 		handleClick(event.offsetX, event.offsetY);

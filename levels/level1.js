@@ -1,17 +1,17 @@
-levels[0] = 
+levels[1] = 
 {	
 	"map" :
 	[
-		[ "o", "o", "o", ["o", "i"], "o", "o", "o", "o", "o", ["o", "i"], ["o", "i"], "o", "o", ["o", "i"], "o", "o", "o", "o", "o", "o"],
-		[ "o", "o", "o", "w", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "w", "o", "o", "o"],
-		[ "o", "w", "w", "w", "w", "w", "w", "w", "o", "o", "o", "o", "w", "w", "w", "w", "w", "w", "w", "o"],
+		[ "w", "w", "w", ["o", "i"], "w", "w", "w", "w", "w", ["o", "i"], ["o", "i"], "w", "w", ["o", "i"], "w", "w", "w", "w", "w", "w"],
+		[ "w", "w", "w", "o", "w", "w", "w", "w", "w", "o", "o", "w", "w", "o", "w", "w", "w", "w", "w", "w"],
+		[ "w", "o", "o", "o", "w", "w", "w", "w", "o", "o", "o", "o", "w", "o", "o", "o", "o", "o", "o", "o"],
+		[ "o", "o", "o", "o", "w", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o"],
+		[ "o", "w", "w", ["w", "g"], "o", "o", "w", "w", "o", "o", "o", "w", "o", "o", "w", "w", ["w", "g"], "w", "w", "o"],
 		[ "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o"],
-		[ "o", "w", "w", "w", "w", "w", "w", "w", "w", ["w", "g"], "w", "w", "w", "w", "w", "w", ["w", "g"], "w", "w", "o"],
-		[ "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o"],
-		[ "w", "w", "w", ["w", "g"], "w", "w", "o", "o", "o", "o", "o", "o", "o", "o", "w", "w", "w", "w", "w", "w"],
-		[ "w", "w", "w", "w", "w", "w", "w", "o", "o", "o", "o", "o", "o", ["w", "g"], "w", "w", "w", "w", "w", "w"],
-		[ "w", "w", "w", "w", "w", "w", "w", ["w", "g"], "o", "o", "o", "o", "w", "w", "w", "w", "w", "w", "w", "w"],
-		[ "w", "w", "w", "w", "w", "w", "w", "w", "w", "o", "o", "w", "w", "w", "w", "w", "w", "w", "w", "w"],
+		[ "w", "o", "w", "w", "w", ["w", "g"], "o", "o", "o", "o", "o", "o", "o", "o", "w", "w", "w", "w", "o", "w"],
+		[ "w", "o", "w", "w", "w", "w", "w", "o", "o", ["w", "g"], "o", "o", "o", "w", ["w", "g"], "w", "w", "w", "o", "w"],
+		[ "w", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "w"],
+		[ "w", "w", ["w", "g"], "w", "w", "w", "w", "w", "w", "o", "o", "w", "w", "w", "w", "w", "w", "w", "w", "w"],
 		[ "w", "w", "w", "w", "w", "w", "w", "w", "w", ["o", "e"], ["o", "e"], "w", "w", "w", "w", "w", "w", "w", "w", "w"]
 	],
 	"waves" : [
@@ -25,7 +25,7 @@ levels[0] =
 			"maxHP": 100,
 			"sizeX": 32,
 			"sizeY": 32,
-			"sheet": "minion1"
+			"sheet": "minion2"
 		},
 		{
 			"startMS": 2000,
@@ -37,7 +37,7 @@ levels[0] =
 			"maxHP": 100,
 			"sizeX": 32,
 			"sizeY": 32,
-			"sheet": "minion2"
+			"sheet": "minion1"
 		},
 		{
 			"startMS": 3000,
@@ -49,7 +49,7 @@ levels[0] =
 			"maxHP": 100,
 			"sizeX": 32,
 			"sizeY": 32,
-			"sheet": "minion1"
+			"sheet": "minion2"
 		},
 		{
 			"startMS": 6000,
@@ -61,7 +61,7 @@ levels[0] =
 			"maxHP": 100,
 			"sizeX": 32,
 			"sizeY": 32,
-			"sheet": "minion2"
+			"sheet": "minion1"
 		},
 		{
 			"startMS": 7000,
@@ -73,7 +73,7 @@ levels[0] =
 			"maxHP": 100,
 			"sizeX": 32,
 			"sizeY": 32,
-			"sheet": "minion1"
+			"sheet": "minion2"
 		},
 		{
 			"startMS": 8000,
@@ -109,7 +109,7 @@ levels[0] =
 			"maxHP": 100,
 			"sizeX": 32,
 			"sizeY": 32,
-			"sheet": "minion2"
+			"sheet": "minion1"
 		},
 		{
 			"startMS": 11000,
@@ -133,7 +133,7 @@ levels[0] =
 			"maxHP": 100,
 			"sizeX": 32,
 			"sizeY": 32,
-			"sheet": "minion1"
+			"sheet": "minion2"
 		},
 		{
 			"startMS": 21000,
@@ -181,7 +181,7 @@ levels[0] =
 			"maxHP": 100,
 			"sizeX": 32,
 			"sizeY": 32,
-			"sheet": "minion1"
+			"sheet": "minion2"
 		},
 		{
 			"startMS": 31000,
@@ -193,7 +193,7 @@ levels[0] =
 			"maxHP": 100,
 			"sizeX": 32,
 			"sizeY": 32,
-			"sheet": "minion2"
+			"sheet": "minion1"
 		},
 		{
 			"startMS": 33000,
@@ -217,7 +217,7 @@ levels[0] =
 			"maxHP": 100,
 			"sizeX": 32,
 			"sizeY": 32,
-			"sheet": "minion2"
+			"sheet": "minion1"
 		},
 		{
 			"startMS": 38000,
@@ -229,7 +229,7 @@ levels[0] =
 			"maxHP": 100,
 			"sizeX": 32,
 			"sizeY": 32,
-			"sheet": "minion1"
+			"sheet": "minion2"
 		},
 		{
 			"startMS": 39000,
@@ -247,7 +247,7 @@ levels[0] =
 	"definition" : 
 	{
 		"w" : { "type" : "wall", "sprite" : "wall1.png" , "passable" : false, "buildable" : true },
-		"o" : { "type" : "floor", "sprite" : "ground1.png" , "passable" : true, "buildable" : false },
+		"o" : { "type" : "floor", "sprite" : "ground1.png" , "passable" : true, "buildable" : true },
 		"i" : 
 		{
 			"type" : "entrance",
@@ -297,6 +297,5 @@ levels[0] =
 			"aoe": 32,
 			"sheet": "tower2"
 		}
-	},
-	"money" : 1000,
+	}
 };

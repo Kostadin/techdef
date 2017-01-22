@@ -348,7 +348,7 @@ function sortUnits(){
 }
 
 function buildTower(gridY, gridX, template_key){
-	if (state.tower_templates[template_key] === null){
+	if (state.tower_templates[template_key] === undefined){
 		return;
 	}
 	if (state.buildable[gridY][gridX]){
@@ -377,8 +377,10 @@ function destroyTower(tower){
 	stage.removeChild(tower.sprite1);
 	stage.removeChild(tower.sprite2);
 	for (var i=0; i<state.towers.length; ++i){
-		state.towers.splice(i, 1);
-		break;
+		if (state.towers[i] === tower){
+			state.towers.splice(i, 1);
+			break;
+		}
 	}
 	state.buildable[tower.gridY][tower.gridX] = true;
 }
@@ -722,11 +724,11 @@ function updateProjectile(projectile, now){
 
 function playerClickedOn(pos){
 	if (command != null){
-		if ((0<=pos.X)&&(pos.X<state.levelGridWidth)&&(0<=pos.Y)&&(pos.Y<state.levelGridHeight)){
+		if ((0<=pos.x)&&(pos.x<state.levelGridWidth)&&(0<=pos.y)&&(pos.y<state.levelGridHeight)){
 			if (command === 'd'){
 				for (var i=0; i<state.towers.length; ++i){
 					var tower = state.towers[i];
-					if ((tower.gridX === pos.X)&&(tower.gridY === pos.Y)){
+					if ((tower.gridX === pos.x)&&(tower.gridY === pos.y)){
 						destroyTower(tower);
 						break;
 					}
@@ -734,8 +736,8 @@ function playerClickedOn(pos){
 			}
 			else
 			{
-				if ((state.buildable[pos.Y][pos.X])){ //check available gold
-
+				if ((state.buildable[pos.y][pos.x])){
+					buildTower(pos.y, pos.x, command);
 				}
 			}
 		}
