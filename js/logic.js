@@ -86,10 +86,12 @@ function gameOver(){
 function killUnit(unit, projectile_type){
 	removeUnit(unit);
 	money += 10;
-	console.log("money:"+money);
+	//console.log("money:"+money);
 	dom_node = document.createTextNode(money);
-	old_node = document.getElementById("money").childNodes[0];
-	document.replaceChild(dom_node, old_node);
+	//console.log(document.getElementById("money").childNodes[0]);
+	money_node = document.getElementById("money");
+	old_node = money_node.childNodes[0];
+	money_node.replaceChild(dom_node, document.getElementById("money").childNodes[0]);
 }
 
 function updateWave(wave, now){
