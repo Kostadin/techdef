@@ -91,7 +91,11 @@ function gameOver(){
 
 function killUnit(unit, projectile_type){
 	removeUnit(unit);
-	money += 10;
+	updateMoney(50);
+}
+
+function updateMoney(num){
+	money += num;
 	//console.log("money:"+money);
 	dom_node = document.createTextNode(money);
 	//console.log(document.getElementById("money").childNodes[0]);
@@ -359,6 +363,9 @@ function buildTower(gridY, gridX, template_key){
 	}
 	if (state.buildable[gridY][gridX]){
 		tower = $.extend(true, {}, state.tower_templates[template_key]);
+		if (tower.cost > money){
+			return;
+		}
 		tower.gridX = gridX;
 		tower.gridY = gridY;
 		tower.x = gridX*TILE_WIDTH+HALF_TILE_WIDTH;
@@ -449,7 +456,7 @@ function updateTower(tower, now){
 		tower.sprite1.visible = true;
 		tower.sprite2.visible = false;
 	}
-	
+
 	// Try firing
 	if (tower.sprite1.visible && (tower.lastFireMS + tower.interval < now)){
 		if (tower.projectile === "plasma"){
