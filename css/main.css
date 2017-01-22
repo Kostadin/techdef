@@ -173,8 +173,13 @@ body{
 }
 
 #money {
-	display: block;
+	display: inline-block;
 	color: white;
+}
+
+.towerUI {
+	color: white;
+	padding-left: 15px;
 }
 
 #money::before{

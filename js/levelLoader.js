@@ -5,6 +5,7 @@ function loadLevel(num) {
 	var levelData = levels[num];
 	health = MAX_HP;
 	money = levelData['money'];
+	updateMoney(0);
 
 	if (!state) {
 		state = {};

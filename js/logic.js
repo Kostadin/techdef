@@ -96,12 +96,28 @@ function killUnit(unit, projectile_type){
 
 function updateMoney(num){
 	money += num;
-	//console.log("money:"+money);
-	dom_node = document.createTextNode(money);
-	//console.log(document.getElementById("money").childNodes[0]);
-	money_node = document.getElementById("money");
-	old_node = money_node.childNodes[0];
-	money_node.replaceChild(dom_node, document.getElementById("money").childNodes[0]);
+	$('#money').text(money);
+	if (money>=100){
+		$('#tower1').css({color: 'white'});
+	}
+	else
+	{
+		$('#tower1').css({color: 'red'});
+	}
+	if (money>=500){
+		$('#tower2').css({color: 'white'});
+	}
+	else
+	{
+		$('#tower2').css({color: 'red'});
+	}
+	if (money>=250){
+		$('#tower3').css({color: 'white'});
+	}
+	else
+	{
+		$('#tower3').css({color: 'red'});
+	}
 }
 
 function updateWave(wave, now){
@@ -398,6 +414,7 @@ function destroyTower(tower){
 		}
 	}
 	state.buildable[tower.gridY][tower.gridX] = true;
+	updateMoney(tower.cost/2);
 }
 
 function prioritiseForPlasma(a, b){
