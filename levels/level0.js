@@ -297,5 +297,6 @@ levels[0] =
 			"aoe": 32,
 			"sheet": "tower2"
 		}
-	}
+	},
+	"money" : 1000,
 };

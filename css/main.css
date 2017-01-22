@@ -154,3 +154,24 @@ body{
 #btnResume {
 	display: none;
 }
+
+#stats {
+	position: relative;
+	top: -70px;
+	left: 50px;
+	display: block;
+	text-align: left;
+}
+
+#healthbar {
+	display: block;
+	width: 1000px;
+	height: 20px;
+	background-color: green;
+	color: white;
+}
+
+#money {
+	display: block;
+	color: white;
+}

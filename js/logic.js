@@ -68,10 +68,28 @@ function unitExits(unit){
 	//console.log(unit);
 
 	removeUnit(unit);
+	var health_bar = document.getElementById('healthbar');
+	console.log("health " + health_bar.style.width);
+	health = health - 50;
+	health_bar.style.width =  health;
+	if(health <= 0){
+		//Game Over
+		gameOver();
+	}
+}
+
+function gameOver(){
+	$('#level').hide();
+	$('#gameOver').show();
 }
 
 function killUnit(unit, projectile_type){
 	removeUnit(unit);
+	money += 10;
+	console.log("money:"+money);
+	dom_node = document.createTextNode(money);
+	old_node = document.getElementById("money").childNodes[0];
+	document.replaceChild(dom_node, old_node);
 }
 
 function updateWave(wave, now){
