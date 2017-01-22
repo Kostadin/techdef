@@ -106,6 +106,7 @@ function startGame(level) {
 					}
 					if (!waveFound){
 						goToNextLevel();
+						return;
 					}
 				}
 			} else {
