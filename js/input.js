@@ -12,6 +12,9 @@ function handleClick(x, y){
 }
 
 function addMouseHandler(){
+	$("body").on('keydown', function (e){
+		command = String.fromCharCode(e.which);
+	});
 	$("canvas").on("mousedown", function(event) {
 		handleClick(event.offsetX, event.offsetY);
 	});

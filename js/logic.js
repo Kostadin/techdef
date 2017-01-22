@@ -84,7 +84,6 @@ function gameOver(){
 }
 
 function killUnit(unit, projectile_type){
-	playSound("explosion");
 	removeUnit(unit);
 	money += 10;
 	console.log("money:"+money);
@@ -347,8 +346,11 @@ function sortUnits(){
 }
 
 function buildTower(gridY, gridX, template_key){
+	if (state.tower_templates[template_key] === null){
+		return;
+	}
 	if (state.buildable[gridY][gridX]){
-		tower = $.extend(true, {} , state.tower_templates[template_key]);
+		tower = $.extend(true, {}, state.tower_templates[template_key]);
 		tower.gridX = gridX;
 		tower.gridY = gridY;
 		tower.x = gridX*TILE_WIDTH+HALF_TILE_WIDTH;
@@ -388,6 +390,7 @@ function prioritiseForPlasma(a, b){
 }
 
 function fireLaser(startX, startY, endX, endY, tower, now){
+	playSound("splash");
 	tower.sprite1.visible = false;
 	tower.sprite2.visible = true;
 	tower.lastFireMS = now;
@@ -402,6 +405,7 @@ function fireLaser(startX, startY, endX, endY, tower, now){
 		originX: tower.x,
 		originY: tower.y-24,
 		damage: tower.damage,
+		aoe: tower.aoe,
 		speed: 8,
 		width: 128,
 		height: 32
@@ -457,6 +461,7 @@ function updateTower(tower, now){
 				var projectile = {
 					type: tower.projectile,
 					damage: tower.damage,
+					aoe: tower.aoe,
 					startX: tower.gridX*TILE_WIDTH+31,
 					startY: tower.gridY*TILE_HEIGHT+6,
 					endX: target.x,
@@ -557,6 +562,58 @@ function updateTower(tower, now){
 				}
 			}
 		} else if (tower.projectile === "granade"){
+			var maxDamage = 0;
+			var maxDamageCell = null;
+			for (var gridY=0; gridY<state.levelGridHeight; ++gridY){
+				for (var gridX=0; gridX<state.levelGridWidth; ++gridX){
+					if ((state.passable[gridY][gridX])&&(sqrVecLength({x: (gridX*TILE_WIDTH+HALF_TILE_WIDTH-tower.x), y: (gridY*TILE_HEIGHT+HALF_TILE_HEIGHT-tower.y)})<tower.range*tower.range)){
+						var damage = state.unitCell[gridY][gridX].length*tower.damage;
+						if (damage > maxDamage){
+							maxDamageCell = state.unitCell[gridY][gridX];
+						}
+					}
+				}
+			}
+			if (maxDamageCell != null){
+				var target = {x: 0, y: 0};
+				for (var i=0; i<maxDamageCell.length; ++i){
+					pointAdd(target, maxDamageCell[i]);
+				}
+				scaleVector(target, 1/maxDamageCell.length);
+				tower.sprite1.visible = false;
+				tower.sprite2.visible = true;
+				tower.lastFireMS = now;
+				var projectile = {
+					type: tower.projectile,
+					damage: tower.damage,
+					aoe: tower.aoe,
+					startX: tower.gridX*TILE_WIDTH+31,
+					startY: tower.gridY*TILE_HEIGHT+6,
+					endX: target.x,
+					endY: target.y,
+					speed: 11,
+					width: 64,
+					height: 64
+				};
+				var sprite = PIXI.Sprite.fromImage("assets/fireball.png");
+				sprite.anchor.x = 1;
+				sprite.anchor.y = 0.5;
+				var dirVector = {x: (projectile.endX - projectile.startX), y: (projectile.endY - projectile.startY)};
+				normalize(dirVector);
+				projectile.dirVector = dirVector;
+				sprite.rotation = Math.atan2(dirVector.y, dirVector.x);
+				scaleVector(projectile.dirVector, projectile.speed);
+				projectile.x = projectile.startX;
+				projectile.y = projectile.startY;
+				pointAdd(projectile, projectile.dirVector);
+				sprite.position.x = projectile.x;
+				sprite.position.y = projectile.y;
+				sprite.scale.x = 1/2;
+				sprite.scale.y = sprite.scale.x;
+				projectile.sprite = sprite;
+				stage.addChild(sprite);
+				state.projectiles.push(projectile);
+			}
 		}
 	}
 }
@@ -575,12 +632,12 @@ function removeProjectile(projectile){
 function damageUnits(point, projectile, tower){
 	for (var i=0; i<state.units.length; ++i){
 		var unit = state.units[i];
-		if (sqrDist(unit, point)<(Math.pow(unit.avgRadius*1.5, 2))){
+		if (sqrDist(unit, point)<(Math.pow((unit.avgRadius*1.5)+tower.aoe, 2))){
 			// Damage calculation
 			unit.hp -= projectile.damage;
 			// Target elimination
 			if (unit.hp <= 0){
-				removeUnit(unit);
+				killUnit(unit);
 			}
 		}
 	}
@@ -620,6 +677,66 @@ function updateProjectile(projectile, now){
 		projectile.sprite.rotation = Math.atan2(originVector.y, originVector.x);
 		projectile.sprite.scale.x = laserLength/projectile.width;
 		damageUnits({x: projectile.x, y: projectile.y}, projectile, tower);
+	} else if (projectile.type === "granade"){
+		if ((projectile.wait != null)&&(projectile.wait > 0)){
+			projectile.wait -= 1;
+			if (projectile.wait === 0){
+				projectile.remove = true;
+			}
+			projectile.sprite.scale.x = (4 - projectile.wait)/2.0;
+			projectile.sprite.scale.y = projectile.sprite.scale.x;
+			projectile.sprite.rotation += Math.random()*0.5;
+		}
+		else
+		{
+			var distVec = {x: (projectile.endX - projectile.x), y: (projectile.endY - projectile.y)};
+			if (sqrVecLength(distVec)<projectile.speed*projectile.speed){
+				playSound("explosion");
+				projectile.wait = 4;
+				//projectile.sprite.visible = false;
+				projectile.sprite.destroy();
+				var spr = stage.sprite;
+				stage.removeChild(spr);
+				projectile.sprite = null;
+				projectile.sprite = PIXI.Sprite.fromImage('assets/explosion.png');
+				projectile.sprite.blendMode = PIXI.BLEND_MODES.SCREEN;
+				projectile.sprite.scale.x = 1;
+				projectile.sprite.scale.y = 1;
+				projectile.sprite.anchor.x = 0.5;
+				projectile.sprite.anchor.y = 0.5;
+				projectile.sprite.rotation = Math.random()*Math.PI;
+				projectile.sprite.x = projectile.endX;
+				projectile.sprite.y = projectile.endY;
+				//stage.addChild(projectile.sprite);
+				damageUnits({x: projectile.endX, y: projectile.endY}, projectile, tower);
+			} else {
+				pointAdd(projectile, projectile.dirVector);
+				projectile.sprite.x = projectile.x;
+				projectile.sprite.y = projectile.y;
+			}
+		}
+	}
+}
+
+function playerClickedOn(pos){
+	if (command != null){
+		if ((0<=pos.X)&&(pos.X<state.levelGridWidth)&&(0<=pos.Y)&&(pos.Y<state.levelGridHeight)){
+			if (command === 'd'){
+				for (var i=0; i<state.towers.length; ++i){
+					var tower = state.towers[i];
+					if ((tower.gridX === pos.X)&&(tower.gridY === pos.Y)){
+						destroyTower(tower);
+						break;
+					}
+				}
+			}
+			else
+			{
+				if ((state.buildable[pos.Y][pos.X])){ //check available gold
+
+				}
+			}
+		}
 	}
 }
 
