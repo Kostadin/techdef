@@ -23,7 +23,7 @@ $(function() {
 		$('#creditsNames').append('<p>'+credits[i]+'</p>');
 		logstr+=credits[i]+'\n';
 	}
-	$('#btnResume').click(function(){ startGame(localStorage['level'])})
+	//$('#btnResume').click(function(){ startGame(localStorage['level'])});
 	console.log(logstr);
 	$('#credits').click(function(){
 		$('#credits').hide();
@@ -62,7 +62,10 @@ $(function() {
 					</p>
 				</div>
 			</div>
-			<div id="level" class="gameScreen" style="display:none;">
+			<div id="level" class="gameScreen" style="display:none;"></div>
+			<div id="stats">
+					<div id="healthbar">test</div>
+					<div id="money">1000 gp</div>
 			</div>
 			<div id="gameOver" class="gameScreen" style="display:none;">
 				Game Over
@@ -73,10 +76,10 @@ $(function() {
 		</div>
 	</div>
 <script>
-	if(localStorage['level'] != null){
-		resumeButton = document.getElementById('btnResume');
-		resumeButton.style = "display: block";
-	}
+	//if(localStorage['level'] != null){
+	//	resumeButton = document.getElementById('btnResume');
+	//	resumeButton.style = "display: block";
+	//}
 </script>
 </body>
 </html>

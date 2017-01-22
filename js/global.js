@@ -45,3 +45,5 @@ var blendAfterMS = 800;
 var blendForMS = 500;
 var fadeAfterMS = 10000;
 var reloadAfterMS = 15000;
+var MAX_HP = 1000;
+var health = MAX_HP;

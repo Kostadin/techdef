@@ -68,6 +68,19 @@ function unitExits(unit){
 	//console.log(unit);
 
 	removeUnit(unit);
+	var health_bar = document.getElementById('healthbar');
+	console.log("health " + health_bar.style.width);
+	health = health - 50;
+	health_bar.style.width =  health;
+	if(health <= 0){
+		//Game Over
+		gameOver();
+	}
+}
+
+function gameOver(){
+	$('#level').hide();
+	$('#gameOver').show();
 }
 
 function killUnit(unit, projectile_type){
