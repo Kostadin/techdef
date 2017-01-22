@@ -763,7 +763,7 @@ function playerDied(now) {
 }
 
 function goToNextLevel() {
-	if (state.levels.length>state.currentLevelIndex+1){
+	if (levels.length>state.currentLevelIndex+1){
 		loadLevel(state.currentLevelIndex+1);
 		renderLevel();
 	} else {
