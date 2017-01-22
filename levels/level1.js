@@ -17,7 +17,7 @@ levels[1] =
 	"waves" : [
 		{
 			"startMS": 1000,
-			"count": 60,
+			"count": 10,
 			"interval": 100,
 			"x": 3,
 			"y": 0,
@@ -29,7 +29,7 @@ levels[1] =
 		},
 		{
 			"startMS": 2000,
-			"count": 60,
+			"count": 9,
 			"interval": 100,
 			"x": 13,
 			"y": 0,
@@ -41,7 +41,7 @@ levels[1] =
 		},
 		{
 			"startMS": 3000,
-			"count": 5,
+			"count": 12,
 			"interval": 100,
 			"x": 9,
 			"y": 0,
@@ -89,7 +89,7 @@ levels[1] =
 		},
 		{
 			"startMS": 9000,
-			"count": 60,
+			"count": 12,
 			"interval": 150,
 			"x": 3,
 			"y": 0,
@@ -101,7 +101,7 @@ levels[1] =
 		},
 		{
 			"startMS": 10000,
-			"count": 12,
+			"count": 7,
 			"interval": 150,
 			"x": 13,
 			"y": 0,
@@ -113,7 +113,7 @@ levels[1] =
 		},
 		{
 			"startMS": 11000,
-			"count": 60,
+			"count": 8,
 			"interval": 150,
 			"x": 9,
 			"y": 0,
@@ -209,7 +209,7 @@ levels[1] =
 		},
 		{
 			"startMS": 38000,
-			"count": 60,
+			"count": 13,
 			"interval": 150,
 			"x": 3,
 			"y": 0,
