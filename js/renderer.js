@@ -65,10 +65,6 @@ function startGame(level) {
 
 	renderInit();
 	renderLevel();
-	// Debug towers
-	buildTower(6, 3, "q");
-	buildTower(4, 9, "w");
-	buildTower(7, 13, "e");
 	startUpdate();
 
 	addMouseHandler();
@@ -78,7 +74,7 @@ function startGame(level) {
 
 	lastUpdate = 0;//currentTime;
 	setInterval(function updateLoop() {
-		var now = lastUpdate + STEP_TIME
+		var now = lastUpdate + STEP_TIME;
 		if (!showingScroll && !showingFinal){
 			if (!restarting){
 				for (var i=0; i<state.projectiles.length; ++i){
@@ -101,11 +97,14 @@ function startGame(level) {
 				}
 			} else {
 				if (now>= restartingUntil){
+					location.reload();
+					/*
 					restartingSprite.visible = false;
 					restarting = false;
 					restartingSprite.alpha = 0;
 					loadLevel(state.currentLevelIndex);
 					renderLevel();
+					*/
 				} else {
 					restartingSprite.alpha = (now - restartingSince)/(restartingUntil - restartingSince);
 				}
@@ -114,8 +113,8 @@ function startGame(level) {
 			if (!finalStartTimeMS){
 				finalStartTimeMS = now;
 				// Mute everything else
-				backgroundTrack.pause();
-				mainTheme.pause();
+				//backgroundTrack.pause();
+				//mainTheme.pause();
 				//spikesFX.pause();
 				//stepsFX.pause();
 				//openDoorFX.pause();
@@ -135,7 +134,7 @@ function startGame(level) {
 						var fadeCoef = (now - (finalStartTimeMS + fadeAfterMS)) / (reloadAfterMS - fadeAfterMS);
 						fadeCoef = Math.max(0, Math.min(fadeCoef, 1));
 						if (fadeCoef<1){
-							console.log(fadeCoef);
+							//console.log(fadeCoef);
 						}
 						fadeSprite.alpha = fadeCoef;
 					}
@@ -215,9 +214,14 @@ function renderLevel(onLoaded) {
 
 function showFinal(){
 	showingFinal = true;
+	stage.removeChild(finalSprite1);
+	stage.removeChild(finalSprite2);
 	finalSprite1.visible = true;
 	finalSprite2.visible = true;
+	stage.addChild(finalSprite1);
+	stage.addChild(finalSprite2);
 	fadeSprite.visible = true;
+	$('#stats').hide();
 }
 
 

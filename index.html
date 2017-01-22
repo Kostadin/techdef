@@ -17,7 +17,7 @@
 $(function() {
     loadAnimations();
 	$('#btnPlay').click(function(){ startGame(0); });
-	var credits = ['Kostadin Vodenicharov - Dev', 'Dimitar Batashki - Dev/Art' , 'Nayden Pendov - Dev', 'Jordan Panov - Level design'];
+	var credits = ['Kostadin Vodenicharov - Dev', 'Dimitar Batashki - Art/Dev' , 'Nayden Pendov - Dev'];
 	shuffle(credits);
 	var logstr = 'Credits\n-------\n';
 	for (var i=0;i<credits.length;++i){
@@ -69,7 +69,6 @@ $(function() {
 					<div id="money">1000 gp</div>
 			</div>
 			<div id="gameOver" class="gameScreen" style="display:none;">
-				Game Over
 			</div>
 			<div id="youWin" style="display:none;">
 				YOU WIN

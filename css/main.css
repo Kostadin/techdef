@@ -94,7 +94,8 @@ body{
 	font-size:100px;
 	font-weight:bold;
 	color:red;
-	background-color:black;
+	background-image:url('../assets/gameover.png');
+	background-repeat: no-repeat;
 	text-align:center;
 	line-height:720px;
 }
@@ -135,7 +136,7 @@ body{
 	width:250px;
 	height:70px;
 	text-align:center;
-	background-image: url('../img/button.png');
+	/*background-image: url('../img/button.png');*/
 	border-radius:5px;
 	cursor:pointer;
 	font-size:50px;

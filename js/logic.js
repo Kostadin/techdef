@@ -81,6 +81,11 @@ function unitExits(unit){
 function gameOver(){
 	$('#level').hide();
 	$('#gameOver').show();
+	var now = lastUpdate + STEP_TIME;
+	restartingSince = now;
+	restartingUntil = now + restartingLengthMS;
+	restarting = true;
+	//restartingSprite.visible = true;
 }
 
 function killUnit(unit, projectile_type){
