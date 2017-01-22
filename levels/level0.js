@@ -246,7 +246,7 @@ levels[0] =
 	],
 	"definition" : 
 	{
-		"w" : { "type" : "wall", "sprite" : "wall1.png" , "passable" : false, "buildable" : true },
+		"w" : { "type" : "wall", "sprite" : "wall1.png" , "passable" : false, "buildable" : false },
 		"o" : { "type" : "floor", "sprite" : "ground1.png" , "passable" : true, "buildable" : false },
 		"i" : 
 		{
