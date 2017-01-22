@@ -86,6 +86,11 @@ function gameOver(){
 function killUnit(unit, projectile_type){
 	playSound("explosion");
 	removeUnit(unit);
+	money += 10;
+	console.log("money:"+money);
+	dom_node = document.createTextNode(money);
+	old_node = document.getElementById("money").childNodes[0];
+	document.replaceChild(dom_node, old_node);
 }
 
 function updateWave(wave, now){

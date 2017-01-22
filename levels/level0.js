@@ -295,5 +295,6 @@ levels[0] =
 			"damage": 10,
 			"sheet": "tower2"
 		}
-	}
+	},
+	"money" : 1000,
 };

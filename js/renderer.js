@@ -60,7 +60,8 @@ function startGame(level) {
 	//backgroundTrack.play();
 
 	$('#mainMenu').hide();
-	health = MAX_HP;
+	var health = MAX_HP;
+	var money = levels[level];
 
 	loadLevel(level);
 
