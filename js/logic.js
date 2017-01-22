@@ -657,17 +657,41 @@ function updateProjectile(projectile, now){
 		projectile.sprite.scale.x = laserLength/projectile.width;
 		damageUnits({x: projectile.x, y: projectile.y}, projectile, tower);
 	} else if (projectile.type === "granade"){
-		var distVec = {x: (projectile.endX - projectile.x), y: (projectile.endY - projectile.y)};
-		if (sqrVecLength(distVec)<projectile.speed*projectile.speed){
-			projectile.remove = true;
-			projectile.sprite.scale.x = projectile.sprite.scale.x/2.0;
-			projectile.sprite.x = projectile.endX;
-			projectile.sprite.y = projectile.endY;
-			damageUnits({x: projectile.endX, y: projectile.endY}, projectile, tower);
-		} else {
-			pointAdd(projectile, projectile.dirVector);
-			projectile.sprite.x = projectile.x;
-			projectile.sprite.y = projectile.y;
+		if ((projectile.wait != null)&&(projectile.wait > 0)){
+			projectile.wait -= 1;
+			if (projectile.wait === 0){
+				projectile.remove = true;
+			}
+			projectile.sprite.scale.x = (4 - projectile.wait)/2.0;
+			projectile.sprite.scale.y = projectile.sprite.scale.x;
+			projectile.sprite.rotation += Math.random()*0.5;
+		}
+		else
+		{
+			var distVec = {x: (projectile.endX - projectile.x), y: (projectile.endY - projectile.y)};
+			if (sqrVecLength(distVec)<projectile.speed*projectile.speed){
+				projectile.wait = 4;
+				//projectile.sprite.visible = false;
+				projectile.sprite.destroy();
+				var spr = stage.sprite;
+				stage.removeChild(spr);
+				projectile.sprite = null;
+				projectile.sprite = PIXI.Sprite.fromImage('assets/explosion.png');
+				projectile.sprite.blendMode = PIXI.BLEND_MODES.SCREEN;
+				projectile.sprite.scale.x = 1;
+				projectile.sprite.scale.y = 1;
+				projectile.sprite.anchor.x = 0.5;
+				projectile.sprite.anchor.y = 0.5;
+				projectile.sprite.rotation = Math.random()*Math.PI;
+				projectile.sprite.x = projectile.endX;
+				projectile.sprite.y = projectile.endY;
+				//stage.addChild(projectile.sprite);
+				damageUnits({x: projectile.endX, y: projectile.endY}, projectile, tower);
+			} else {
+				pointAdd(projectile, projectile.dirVector);
+				projectile.sprite.x = projectile.x;
+				projectile.sprite.y = projectile.y;
+			}
 		}
 	}
 }

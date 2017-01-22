@@ -17,7 +17,7 @@ levels[0] =
 	"waves" : [
 		{
 			"startMS": 1000,
-			"count": 10,
+			"count": 60,
 			"interval": 100,
 			"x": 3,
 			"y": 0,
@@ -29,7 +29,7 @@ levels[0] =
 		},
 		{
 			"startMS": 2000,
-			"count": 10,
+			"count": 60,
 			"interval": 100,
 			"x": 13,
 			"y": 0,
@@ -89,7 +89,7 @@ levels[0] =
 		},
 		{
 			"startMS": 9000,
-			"count": 10,
+			"count": 60,
 			"interval": 150,
 			"x": 3,
 			"y": 0,
@@ -109,11 +109,11 @@ levels[0] =
 			"maxHP": 100,
 			"sizeX": 32,
 			"sizeY": 32,
-			"sheet": "minio2"
+			"sheet": "minion2"
 		},
 		{
 			"startMS": 11000,
-			"count": 10,
+			"count": 60,
 			"interval": 150,
 			"x": 9,
 			"y": 0,
@@ -209,7 +209,7 @@ levels[0] =
 		},
 		{
 			"startMS": 38000,
-			"count": 10,
+			"count": 60,
 			"interval": 150,
 			"x": 3,
 			"y": 0,
@@ -242,8 +242,7 @@ levels[0] =
 			"sizeX": 58,
 			"sizeY": 58,
 			"sheet": "minionboss"
-		},
-		
+		}
 	],
 	"definition" : 
 	{
@@ -276,7 +275,7 @@ levels[0] =
 			"interval": 100,
 			"duration": 50,
 			"range": 220,
-			"damage": 100,
+			"damage": 20,
 			"aoe": 0,
 			"sheet": "tower1"
 		},
@@ -285,16 +284,16 @@ levels[0] =
 			"interval": 330,
 			"duration":250,
 			"range": 350,
-			"damage": 50,
+			"damage": 20,
 			"aoe": 10,
 			"sheet": "tower3"
 		},
 		"e" : {
 			"projectile": "granade",
-			"interval": 350,
+			"interval": 500,
 			"duration": 50,
 			"range": 220,
-			"damage": 10,
+			"damage": 40,
 			"aoe": 32,
 			"sheet": "tower2"
 		}
