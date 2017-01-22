@@ -63,7 +63,7 @@ function loadLevel(num) {
 				for (var i=0; i<map[y][x].length; ++i){
 					var tileType = map[y][x][i];
 					var tile = $.extend(true, {} , definition[tileType]);
-					buildable[x] &= tile.buildable;
+					buildable[x] |= tile.buildable;
 					passable[x] &= tile.passable;
 					if (tile.type === "exit" ){
 						exit[x] = true;
