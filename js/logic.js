@@ -328,8 +328,11 @@ function sortUnits(){
 }
 
 function buildTower(gridY, gridX, template_key){
+	if (state.tower_templates[template_key] === null){
+		return;
+	}
 	if (state.buildable[gridY][gridX]){
-		tower = $.extend(true, {} , state.tower_templates[template_key]);
+		tower = $.extend(true, {}, state.tower_templates[template_key]);
 		tower.gridX = gridX;
 		tower.gridY = gridY;
 		tower.x = gridX*TILE_WIDTH+HALF_TILE_WIDTH;
@@ -616,7 +619,7 @@ function damageUnits(point, projectile, tower){
 			unit.hp -= projectile.damage;
 			// Target elimination
 			if (unit.hp <= 0){
-				removeUnit(unit);
+				killUnit(unit);
 			}
 		}
 	}
@@ -692,6 +695,28 @@ function updateProjectile(projectile, now){
 				pointAdd(projectile, projectile.dirVector);
 				projectile.sprite.x = projectile.x;
 				projectile.sprite.y = projectile.y;
+			}
+		}
+	}
+}
+
+function playerClickedOn(pos){
+	if (command != null){
+		if ((0<=pos.X)&&(pos.X<state.levelGridWidth)&&(0<=pos.Y)&&(pos.Y<state.levelGridHeight)){
+			if (command === 'd'){
+				for (var i=0; i<state.towers.length; ++i){
+					var tower = state.towers[i];
+					if ((tower.gridX === pos.X)&&(tower.gridY === pos.Y)){
+						destroyTower(tower);
+						break;
+					}
+				}
+			}
+			else
+			{
+				if ((state.buildable[pos.Y][pos.X])){ //check available gold
+				
+				}
 			}
 		}
 	}
